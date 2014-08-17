@@ -1,47 +1,207 @@
 // Theme variables
-@darkgrey: #5E5E5E;
-@grey: #AFAFAF;
+@darkgrey: #424242;
+@grey: #6C6C6C;
 @lightgrey: #F6F6F6;
-
 @blue: #2FB5D7;
+@lightblue: #3fc5e7;
 
-@site_background_color: @lightgrey;
-@site_text_color: @darkgrey;
-@site_anchor_color: @blue;
+@highlight-color: @blue;
+
+@site-background-color: @lightgrey;
+@site-border: darken(@lightgrey, 30);
+@site-text-color: @darkgrey;
+@site-anchor-color: @highlight-color;
+
+@menu-normal-text-color: white;
+@menu-normal-background-color: @darkgrey;
+@menu-hover-text-color: white;
+@menu-hover-background-color: @grey;
+@menu-active-text-color: white;
+@menu-active-background-color: @blue;
+@menu-active-hover-text-color: white;
+@menu-active-hover-background-color: @lightblue;
 
 @import '../bower_components/bootstrap/less/bootstrap';
 
+@font-family-base: Verdana,Helvetica,Arial,sans-serif;
+
+// # Mixins
+.preserve-3d {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.vertical-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 // # Global
+html {
+    font-size: 62.5%;
+}
+
 body {
-    background: @site_background_color;
-    color: @site_text_color;
+    background: @site-background-color;
+    color: @site-text-color;
 }
 
 a {
-    color: @site_anchor_color;
+    color: @site-anchor-color;
 }
 
 // # Base
 // ## Header
-header.site {
-    .row;
+#site-wrapper {
+    .container-fluid;
+}
 
-    h1 {
+header.site {
+    .make-row;
+
+    height: 12rem;
+
+    #site-name {
         .make-md-column(4);
+        .preserve-3d;
+
+        height: 100%;
+        margin: 0;
 
         a {
-            color: @darkgrey;
-            font-weight: 900;
-            font-size: 1.5em;
+            .vertical-align;
+
+            color: @site-text-color;
             text-decoration: none;
+            font-weight: 900;
+            font-size: 5rem;
+
+            display: block;
+            padding: 2.5rem;
 
             span:last-of-type {
-                color: @blue;
+                color: @highlight-color;
             }
         }
     }
 
-    nav {
+    #menu {
         .make-md-column(8);
+        .preserve-3d;
+
+        height: 100%;
+
+        ul {
+            .vertical-align;
+
+            list-style: none;
+            float: right;
+
+            li {
+                display: inline-block;
+                height: 4rem;
+                margin: 0.5rem;
+                border-radius: 0.5rem;
+
+                background-color: @menu-normal-background-color;
+
+                &.active {
+                    background-color: @menu-active-background-color;
+
+                    a {
+                        color: @menu-active-text-color;
+                    }
+                }
+
+                &:hover {
+                    background-color: @menu-hover-background-color;
+
+                    a {
+                        color: @menu-hover-text-color;
+                    }
+                }
+
+                a {
+                    color: @menu-normal-text-color;
+                    display: inline-block;
+                    padding-left: 3rem;
+                    padding-right: 3rem;
+                    height: 100%;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+
+                a:before {
+                    content: '';
+                    display: inline-block;
+                    vertical-align: middle;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+#breadcrumbs {
+    .make-md-column(12);
+
+    border-top: 1px dashed @site-border;
+    border-bottom: 1px dashed @site-border;
+
+    ol {
+        .clearfix;
+
+        list-style: none;
+        margin: 0;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        padding: 0;
+
+        li {
+            float: left;
+            margin-right: 0.5em;
+
+            &:before {
+                content: "»";
+                margin-right: 0.5em;
+            }
+        }
+    }
+}
+
+footer.site {
+    .make-row;
+    .preserve-3d;
+
+    border-top: 1px dashed @site-border;
+    border-bottom: 1px dashed @site-border;
+    height: 3em;
+
+    #powered-by, #copyright, #social {
+        .make-sm-column(4);
+        .vertical-align;
+    }
+
+    #copyright {
+        text-align: center;
+    }
+
+    #social ul {
+        list-style: none;
+        margin: 0;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        padding: 0;
+
+        float:right;
+
+        li {
+            display: inline-block;
+            margin-right: 0.5em;
+        }
     }
 }

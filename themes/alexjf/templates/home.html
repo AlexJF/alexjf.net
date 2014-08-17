@@ -1,9 +1,6 @@
-{% extends "base.html" %}
+{% extends "page.html" %}
 {% block content %}
 <section id="content">
-{% block content_title %}
-    <h1>{{ entity.title }}</h1>
-{% endblock %}
     {{ entity.content }}
 </section><!-- /#content -->
 <section id="latest-blog">

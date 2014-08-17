@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+import os
 
 #######################################################################
 #                               GENERAL                               #
@@ -71,7 +72,10 @@ ENTITY_TYPES = {
         "ARTICLE_SAVE_AS": "blog/{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html",
         "DIRECT_TEMPLATES": ["blog"],
         "PAGINATED_DIRECT_TEMPLATES": ["blog"],
-        "BLOG_SAVE_AS": "blog/index.html"
+        "BLOG_SAVE_AS": "blog/index.html",
+        "CATEGORY_TEMPLATE": "category",
+        "CATEGORY_URL": 'blog/category/{slug}/',
+        "CATEGORY_SAVE_AS": os.path.join('blog', 'category', '{slug}', 'index.html')
     },
     "Project": {
         "PATHS": ["projects"],
@@ -79,7 +83,10 @@ ENTITY_TYPES = {
         "PROJECT_SAVE_AS": "projects/{category}/{slug}/index.html",
         "DIRECT_TEMPLATES": ["projects"],
         "PAGINATED_DIRECT_TEMPLATES": ["projects"],
-        "PROJECTS_SAVE_AS": "projects/index.html"
+        "PROJECTS_SAVE_AS": "projects/index.html",
+        "CATEGORY_TEMPLATE": "category",
+        "CATEGORY_URL": 'projects/category/{slug}/',
+        "CATEGORY_SAVE_AS": os.path.join('projects', 'category', '{slug}', 'index.html')
     }
 }
 

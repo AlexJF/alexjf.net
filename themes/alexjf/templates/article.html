@@ -18,6 +18,12 @@
 
 {% block title %}{{ entity.title }}{%endblock%}
 
+{% block breadcrumbs %}
+<li><a href="blog/">Blog</a></li>
+<li><a href="blog/category/{{ entity.category.slug }}">{{ entity.category.name | title }}</a></li>
+<li>{{ entity.title }}</li>
+{% endblock %}
+
 {% block content %}
 {% set article = entity %}
 <section id="content" class="body">

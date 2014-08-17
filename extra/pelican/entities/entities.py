@@ -55,16 +55,27 @@ def get_default_entity_type_settings(entity_type):
     settings['MANDATORY_PROPERTIES'] = ['title', 'date']
     settings['DEFAULT_TEMPLATE'] = entity_type_lower
 
-    settings['FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', 'atom.xml')
-    settings['FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', 'rss.xml')
-    settings['FEED_ALL_ATOM'] = os.path.join(entity_type_lower, 'feeds', 'all.atom.xml')
-    settings['FEED_ALL_RSS'] = os.path.join(entity_type_lower, 'feeds', 'all.rss.xml')
-    settings['CATEGORY_FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', '%s.atom.xml')
-    settings['CATEGORY_FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', '%s.rss.xml')
-    settings['AUTHOR_FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', '%s.atom.xml')
-    settings['AUTHOR_FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', '%s.rss.xml')
-    settings['TRANSLATION_FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', 'all-%s.atom.xml')
-    settings['TRANSLATION_FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', 'all-%s.rss.xml')
+    #settings['FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', 'atom.xml')
+    #settings['FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', 'rss.xml')
+    #settings['FEED_ALL_ATOM'] = os.path.join(entity_type_lower, 'feeds', 'all.atom.xml')
+    #settings['FEED_ALL_RSS'] = os.path.join(entity_type_lower, 'feeds', 'all.rss.xml')
+    #settings['CATEGORY_FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', '%s.atom.xml')
+    #settings['CATEGORY_FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', '%s.rss.xml')
+    #settings['AUTHOR_FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', '%s.atom.xml')
+    #settings['AUTHOR_FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', '%s.rss.xml')
+    #settings['TRANSLATION_FEED_ATOM'] = os.path.join(entity_type_lower, 'feeds', 'all-%s.atom.xml')
+    #settings['TRANSLATION_FEED_RSS'] = os.path.join(entity_type_lower, 'feeds', 'all-%s.rss.xml')
+
+    settings['FEED_ATOM'] = None
+    settings['FEED_RSS'] = None
+    settings['FEED_ALL_ATOM'] = None
+    settings['FEED_ALL_RSS'] = None
+    settings['CATEGORY_FEED_ATOM'] = None
+    settings['CATEGORY_FEED_RSS'] = None
+    settings['AUTHOR_FEED_ATOM'] = None
+    settings['AUTHOR_FEED_RSS'] = None
+    settings['TRANSLATION_FEED_ATOM'] = None
+    settings['TRANSLATION_FEED_RSS'] = None
 
     settings[entity_type_upper + '_URL'] = entity_type_lower + '/{slug}.html'
     settings[entity_type_upper + '_SAVE_AS'] = os.path.join(entity_type_lower, '{slug}.html')
@@ -286,6 +297,7 @@ class EntityGenerator(generators.Generator):
 
                 write(save_as, self.get_template(template),
                       self.context, entity_type=self.entity_type, paginated=paginated,
+                      direct=True, direct_save_as=save_as,
                       page_name=os.path.splitext(save_as)[0])
 
         def generate_tags(self, write):

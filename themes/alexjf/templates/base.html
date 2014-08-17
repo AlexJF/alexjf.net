@@ -21,23 +21,29 @@
 </head>
 
 <body>
-    <div class="container">
+    <div id="site-wrapper">
         <header class="site">
-            <h1><a class="worded" href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
+            <h1 id="site-name"><a class="worded" href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
             <nav id="menu">
                 <ul>
                     {% for title, url in MENU %}
-                    <li{% if entity and entity.url.startswith(url) %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ url }}">{{ title }}</a></li>
+                    <li{% if (entity and (url == entity.url or (entity.url.startswith(url) and url != ''))) or (direct and (direct_save_as == url or (direct_save_as.startswith(url) and url != ''))) %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ url }}">{{ title }}</a></li>
                     {% endfor %}
                 </ul>
             </nav><!-- /#menu -->
+            <nav id="breadcrumbs">
+                <ol>
+                {% block breadcrumbs %}
+                {% endblock %}
+                </ol>
+            </nav>
         </header><!-- /#banner -->
         <main>
         {% block content %}
         {% endblock %}
         </main>
         <footer class="site">
-            <div id="poweredby">
+            <div id="powered-by">
                 Powered by <a href="http://getpelican.com/">Pelican</a>
             </div>
             <div id="copyright">
