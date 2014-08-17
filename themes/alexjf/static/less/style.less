@@ -1,0 +1,47 @@
+// Theme variables
+@darkgrey: #5E5E5E;
+@grey: #AFAFAF;
+@lightgrey: #F6F6F6;
+
+@blue: #2FB5D7;
+
+@site_background_color: @lightgrey;
+@site_text_color: @darkgrey;
+@site_anchor_color: @blue;
+
+@import '../bower_components/bootstrap/less/bootstrap';
+
+// # Global
+body {
+    background: @site_background_color;
+    color: @site_text_color;
+}
+
+a {
+    color: @site_anchor_color;
+}
+
+// # Base
+// ## Header
+header.site {
+    .row;
+
+    h1 {
+        .make-md-column(4);
+
+        a {
+            color: @darkgrey;
+            font-weight: 900;
+            font-size: 1.5em;
+            text-decoration: none;
+
+            span:last-of-type {
+                color: @blue;
+            }
+        }
+    }
+
+    nav {
+        .make-md-column(8);
+    }
+}

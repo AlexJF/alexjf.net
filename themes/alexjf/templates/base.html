@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock title %}{% if self.title() %} | {% endif %}{{ SITENAME }}</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% assets filters="less,cssmin", output="css/style.min.css", "less/style.less" %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+    {% endassets %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% endblock head %}
+</head>
+
+<body>
+    <div class="container">
+        <header class="site">
+            <h1><a class="worded" href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
+            <nav id="menu">
+                <ul>
+                    {% for title, url in MENU %}
+                    <li{% if entity and entity.url.startswith(url) %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ url }}">{{ title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav><!-- /#menu -->
+        </header><!-- /#banner -->
+        <main>
+        {% block content %}
+        {% endblock %}
+        </main>
+        <footer class="site">
+            <div id="poweredby">
+                Powered by <a href="http://getpelican.com/">Pelican</a>
+            </div>
+            <div id="copyright">
+                Copyright © Alex JF {{ STARTING_YEAR }} - 2014
+            </div>
+            <div id="social">
+                <ul>
+                    {% for name, link in SOCIAL %}
+                    <li>
+                    <a href="{{ link }}">
+                        <img src="{{ SITEURL }}/theme/images/social/{{ name | lower }}.png" title="{{ name }}" />
+                    </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </footer><!-- /#contentinfo -->
+    </div>
+    {% assets filters="uglifyjs", output="js/packed.js", 
+       "bower_components/jquery/dist/jquery.min.js", 
+       "bower_components/bootstrap/dist/js/bootstrap.min.js", 
+       "bower_components/Lettering.js/jquery.lettering.js" %}
+    <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script>
+      $(document).ready(function() {
+        $(".lettered").lettering();
+        $(".worded").lettering('words');
+      });
+    </script>
+</body>
+</html>

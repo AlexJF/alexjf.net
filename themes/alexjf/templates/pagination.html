@@ -1,0 +1,11 @@
+{% if DEFAULT_PAGINATION %}
+<p class="paginator">
+    {% if entities_page.has_previous() %}
+        <a href="{{ SITEURL }}/{{ entities_previous_page.url }}">&laquo;</a>
+    {% endif %}
+    Page {{ entities_page.number }} / {{ entities_paginator.num_pages }}
+    {% if entities_page.has_next() %}
+        <a href="{{ SITEURL }}/{{ entities_next_page.url }}">&raquo;</a>
+    {% endif %}
+</p>
+{% endif %}
