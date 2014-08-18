@@ -1,6 +1,6 @@
 Title: About Me
 
-<img alt="" src="https://www.alexjf.net/sites/default/files/pictures/me.jpg" style="float:right; height:256px; margin:20px; width:256px">
+<img class="float-or-center-sm block" alt="" src="{static me4.jpg thumb=256x256}">
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  
@@ -71,44 +71,44 @@ Title: About Me
 * Merit Scholarship (Instituto Superior Técnico) - overall best grades of the Information Systems and Computer Engineering course during the first year (2009/2010 - 19.6 out of 20)
 * Scientific Merit Award (Colégio Marista de Carcavelos) - overall best grades of the 9th and 10th year (2005/2006 &amp; 2006/2007)
 * Cambridge Exams:
- * IELTS - Score 8.5/9 (July 2011)
- * Certificate of Advanced English - Grade A (June 2007)
- * First Certificate of English - Grade A (June 2005)
+    * IELTS - Score 8.5/9 (July 2011)
+    * Certificate of Advanced English - Grade A (June 2007)
+    * First Certificate of English - Grade A (June 2005)
 * 3rd place on the National Robotics Festival under the category of Robot Football
 
 **Experience with:**
 
 * Programming languages & main libraries:
- * C and C++11 (plus SDL/wxWidgets/OpenGL/QT)
- * Python (plus Numpy, Scipy, Boto, Paramiko, Flask, Django)
- * Java (GWT, Jgroups)
- * JavaScript (plus JQuery, Processing.js, Node.js, AngularJS, Bootstrap)
- * PHP (Frameworks: CakePHP, Laravel | CMS: Drupal, Wordpress, CMSMS)
- * VB.NET, C#.
- * HTML 5, CSS (Grid, Responsive, Bootstrap, LESS)
- * SQL, Erlang, Scheme, CLisp, Prolog, Assembly
+    * C and C++11 (plus SDL/wxWidgets/OpenGL/QT)
+    * Python (plus Numpy, Scipy, Boto, Paramiko, Flask, Django)
+    * Java (GWT, Jgroups)
+    * JavaScript (plus JQuery, Processing.js, Node.js, AngularJS, Bootstrap)
+    * PHP (Frameworks: CakePHP, Laravel | CMS: Drupal, Wordpress, CMSMS)
+    * VB.NET, C#.
+    * HTML 5, CSS (Grid, Responsive, Bootstrap, LESS)
+    * SQL, Erlang, Scheme, CLisp, Prolog, Assembly
 * Mobile development:
- * Android
- * Windows Phone
+    * Android
+    * Windows Phone
 * Databases:
- * Relational: MySQL/MariaDB, PostgreSQL, SQLite
- * NoSQL: Cassandra, CouchDB, CouchBase, MongoDB, DynamoDB
+    * Relational: MySQL/MariaDB, PostgreSQL, SQLite
+    * NoSQL: Cassandra, CouchDB, CouchBase, MongoDB, DynamoDB
 * Distributed Systems & Cloud Computing & Big data:
- * OpenMPI, OpenMP
- * Hadoop YARN, MapReduce, Giraph, Pig
- * Amazon AWS (mainly EC2, S3, EMR, ELB, DynamoDB), Heroku
+    * OpenMPI, OpenMP
+    * Hadoop YARN, MapReduce, Giraph, Pig
+    * Amazon AWS (mainly EC2, S3, EMR, ELB, DynamoDB), Heroku
 * Enterprise: Mule ESB, IBM Worklight
 * Server Administration and Configuration:
- * Configuration from scratch of Linux servers with software such as LAMP, nginx, iptables, fail2ban, dovecot, postfix, ssh, ftp, ssl management.
- * Setting up Continuous Integration (CI) clusters with Jenkins.
+    * Configuration from scratch of Linux servers with software such as LAMP, nginx, iptables, fail2ban, dovecot, postfix, ssh, ftp, ssl management.
+    * Setting up Continuous Integration (CI) clusters with Jenkins.
 * Operating Systems &amp; distributions:
- * Windows XP, Vista, 7, 8
- * Linux: Arch Linux (my main distro), OpenSUSE, Ubuntu, Mint, Fedora, RHEL
+    * Windows XP, Vista, 7, 8
+    * Linux: Arch Linux (my main distro), OpenSUSE, Ubuntu, Mint, Fedora, RHEL
 * Control Versioning Systems: Svn, Git, Mercurial
 * Misc:
- * Office suites
- * LaTeX (documents, presentations with Beamer and graphics with TikZ)
- * Photoshop/GIMP, Inkscape
+    * Office suites
+    * LaTeX (documents, presentations with Beamer and graphics with TikZ)
+    * Photoshop/GIMP, Inkscape
 
 **Opensource projects I contributed to:**
 

@@ -14,7 +14,7 @@ SITEURL = ""
 
 THEME = "themes/alexjf"
 PLUGIN_PATHS = ["extra/pelican", "extra/pelican-plugins"]
-PLUGINS = ["entities", "assets"]
+PLUGINS = ["entities", "assets", "autostatic"]
 
 PATH = "content"
 
@@ -52,7 +52,6 @@ DEFAULT_PAGINATION = 10
 PAGE_PATHS = []
 ARTICLE_PATHS = []
 
-PATH_METADATA = r".*/(?P<category>[^/]+)/(?P<date>\d{4}/\d{2}/\d{2})/(?P<slug>[^/]+).*"
 USE_FOLDER_AS_CATEGORY = False
 DEFAULT_DATE = "fs"
 
@@ -64,12 +63,14 @@ ENTITY_TYPES = {
         "PATHS": ["."],
         "EXCLUDES": ["blog", "projects"],
         "PAGE_URL": "{slug}",
-        "PAGE_SAVE_AS": "{slug}/index.html"
+        "PAGE_SAVE_AS": "{slug}/index.html",
+        "PATH_METADATA": r"(?P<slug>[^/]+)/.*"
     },
     "Article": {
         "PATHS": ["blog"],
         "ARTICLE_URL": "blog/{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}/",
         "ARTICLE_SAVE_AS": "blog/{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html",
+        "PATH_METADATA": r".*/(?P<category>[^/]+)/(?P<date>\d{4}/\d{2}/\d{2})/(?P<slug>[^/]+)/.*",
         "DIRECT_TEMPLATES": ["blog"],
         "PAGINATED_DIRECT_TEMPLATES": ["blog"],
         "BLOG_SAVE_AS": "blog/index.html",
@@ -81,6 +82,7 @@ ENTITY_TYPES = {
         "PATHS": ["projects"],
         "PROJECT_URL": "projects/{category}/{slug}/",
         "PROJECT_SAVE_AS": "projects/{category}/{slug}/index.html",
+        "PATH_METADATA": r".*/(?P<category>[^/]+)/(?P<date>\d{4}/\d{2}/\d{2})/(?P<slug>[^/]+)/.*",
         "DIRECT_TEMPLATES": ["projects"],
         "PAGINATED_DIRECT_TEMPLATES": ["projects"],
         "PROJECTS_SAVE_AS": "projects/index.html",

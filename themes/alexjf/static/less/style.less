@@ -40,6 +40,42 @@
     transform: translateY(-50%);
 }
 
+.block {
+    display: block;
+}
+
+.vertical-align-md {
+    @media (min-width: @screen-md-min) {
+        .vertical-align;
+    }
+}
+
+.vertical-align-sm {
+    @media (min-width: @screen-sm-min) {
+        .vertical-align;
+    }
+}
+
+.float-right-md {
+    @media (min-width: @screen-md-min) {
+        float: right;
+    }
+}
+
+.float-right-sm {
+    @media (min-width: @screen-sm-min) {
+        float: right;
+    }
+}
+
+.float-or-center-sm {
+    .float-right-sm;
+
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 // # Global
 html {
     font-size: 62.5%;
@@ -63,7 +99,9 @@ a {
 header.site {
     .make-row;
 
-    height: 12rem;
+    @media (min-width: @screen-md-min) {
+        height: 12rem;
+    }
 
     #site-name {
         .make-md-column(4);
@@ -73,7 +111,7 @@ header.site {
         margin: 0;
 
         a {
-            .vertical-align;
+            .vertical-align-md;
 
             color: @site-text-color;
             text-decoration: none;
@@ -92,19 +130,23 @@ header.site {
     #menu {
         .make-md-column(8);
         .preserve-3d;
+        .clearfix;
 
         height: 100%;
 
         ul {
-            .vertical-align;
+            .vertical-align-md;
+            .float-right-md;
 
             list-style: none;
-            float: right;
+
+            padding: 0;
 
             li {
                 display: inline-block;
                 height: 4rem;
                 margin: 0.5rem;
+                margin-left: 0;
                 border-radius: 0.5rem;
 
                 background-color: @menu-normal-background-color;
@@ -179,25 +221,36 @@ footer.site {
 
     border-top: 1px dashed @site-border;
     border-bottom: 1px dashed @site-border;
-    height: 3em;
 
-    #powered-by, #copyright, #social {
-        .make-sm-column(4);
-        .vertical-align;
+    text-align: center;
+
+    @media (min-width: @screen-sm-min) {
+        height: 3em;
+    }
+
+    #powered-by, #social {
+        .make-sm-column(3);
+        .vertical-align-sm;
+    }
+
+    #powered-by {
+        @media (min-width: @screen-sm-min) {
+            text-align: left;
+        }
     }
 
     #copyright {
+        .make-sm-column(6);
+        .vertical-align-sm;
         text-align: center;
     }
 
     #social ul {
+        .float-right-sm;
+
         list-style: none;
         margin: 0;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
         padding: 0;
-
-        float:right;
 
         li {
             display: inline-block;
