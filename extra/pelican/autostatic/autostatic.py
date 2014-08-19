@@ -17,6 +17,7 @@ from pelican.contents import Static
 from pelican.utils import mkdir_p
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 autostatic_generator = None
 detected_autostatic_paths = {}
@@ -42,15 +43,21 @@ def parse_static_references(instance, text):
 
 
 class StaticPath(object):
-    def __init__(self, source, destination, extra):
+    def __init__(self, source, destination, url, extra):
         self._source = source
+        self._original_destination = destination
         self._destination = destination
+        self._original_url = url
+        self._url = url
         self._extra = extra
-        self._destination_modified = False
 
     @property
     def source(self):
         return self._source
+
+    @property
+    def original_destination(self):
+        return self._original_destination
 
     @property
     def destination(self):
@@ -58,11 +65,19 @@ class StaticPath(object):
 
     @destination.setter
     def destination(self, value):
-        if self._destination_modified:
-            raise AttributeError("The destination of %s can only be set once (current: %s, new: %s)" %
-                    (self.source, self.destination, value))
         self._destination = value
-        self._destination_modified = True
+
+    @property
+    def original_url(self):
+        return self._original_url
+
+    @property
+    def url(self):
+        return self._url
+
+    @url.setter
+    def url(self, value):
+        self._url = value
 
     @property
     def extra(self):
@@ -77,7 +92,7 @@ def get_static_path(instance):
         extra_dict = {}
 
         if extra:
-            for match in re.finditer(r'(\w+)="?((?:\w*|(?<=")(?:\\.|[^"\\])*(?=")))"?', extra):
+            for match in re.finditer(r'(\w+)="?((?:(?<!")[^\s]+|(?<=")(?:\\.|[^"\\])*(?=")))"?', extra):
                 extra_dict[match.group(1)] = match.group(2)
 
         if path.startswith('/'):
@@ -88,16 +103,38 @@ def get_static_path(instance):
                 os.path.join(instance.relative_dir, path))
             destination_path = os.path.join(os.path.dirname(instance.save_as), path)
 
-        static_path_obj = StaticPath(source_path, destination_path, extra_dict)
+        if "output" in extra_dict:
+            output_override = extra_dict["output"]
+
+            if output_override.startswith('/'):
+                destination_path = output_override[1:]
+            else:
+                destination_path = os.path.join(os.path.dirname(instance.save_as), output_override)
+
+        siteurl = instance._context.get("localsiteurl", "")
+        url = siteurl + "/" + destination_path
+
+        if "url" in extra_dict:
+            url_override = extra_dict["url"]
+
+            if url_override.startswith('/'):
+                url = siteurl + url_override
+            else:
+                url = siteurl + "/" + os.path.join(os.path.dirname(instance.save_as), url_override)
+
+        url = url.replace('\\', '/')  # for Windows paths.
+
+        static_path_obj = StaticPath(source_path, destination_path, url, extra_dict)
         autostatic_path_found.send(autostatic_path=static_path_obj)
+
+        logger.debug("Detected autostatic path: {} -> {} ({})".format(
+            static_path_obj.source,
+            static_path_obj.destination,
+            static_path_obj.url))
 
         detected_autostatic_paths[static_path_obj.destination] = static_path_obj.source
 
-        siteurl = instance._context.get("localsiteurl", "")
-        url = siteurl + "/" + static_path_obj.destination
-        url = url.replace('\\', '/')  # for Windows paths.
-
-        return url
+        return static_path_obj.url
 
     return _get_static_path
 
@@ -119,7 +156,7 @@ class AutoStaticGenerator(generators.Generator):
 
 
     def add_static_path(self, source_path, save_as):
-        try: 
+        try:
             static = self.readers.read_file(
                     base_path=self.path, path=source_path, content_class=Static,
                     fmt='static', context=self.context,
@@ -127,6 +164,7 @@ class AutoStaticGenerator(generators.Generator):
                     preread_sender=self,
                     context_signal=self.autostatic_generator_context,
                     context_sender=self)
+            static.override_save_as = save_as
             self.autostatic_files.append(static)
             self.add_source_path(static)
         except Exception as e:

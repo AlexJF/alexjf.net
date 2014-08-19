@@ -11,10 +11,11 @@ AUTHOR = "Alexandre Fonseca"
 SITENAME = "Alex JF"
 STARTING_YEAR = 2012
 SITEURL = ""
+DEBUG = True
 
 THEME = "themes/alexjf"
 PLUGIN_PATHS = ["extra/pelican", "extra/pelican-plugins"]
-PLUGINS = ["entities", "assets", "autostatic"]
+PLUGINS = ["entities", "assets", "autostatic", "advthumbnailer"]
 
 PATH = "content"
 
