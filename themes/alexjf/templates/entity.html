@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+{% for keyword in entity.keywords %}
+<meta name="keywords" contents="{{keyword}}" />
+{% endfor %}
+
+{% for description in entity.description %}
+<meta name="description" contents="{{description}}" />
+{% endfor %}
+
+{% for tag in entity.tags %}
+<meta name="tags" contents="{{tag}}" />
+{% endfor %}
+{% endblock %}
+
+{% block title %}{{ entity.title }}{%endblock%}
+
+{% block content %}
+<article id="{{ entity.slug }}" class="full {{ entity.type | lower }}-full">
+    <header>
+        {% block entity_header scoped %}
+        <h2 class="entity-title">
+            <a href="{{ SITEURL }}/{{ entity.url }}" rel="bookmark"
+                title="Permalink to {{ entity.title|striptags }}">{{ entity.title }}</a>
+        </h2>
+        {% import 'translations.html' as translations with context %}
+        {{ translations.translations_for(entity) }}
+        {% endblock %}
+    </header>
+    <div class="entity-body">
+        <footer class="entity-info">
+            <ul>
+                {% block entity_metadata scoped %}
+                <li class="published">
+                <time title="{{ entity.date.isoformat() }}" datetime="{{ entity.date.isoformat() }}">Submitted on {{ entity.locale_date }}</time>
+                </li>
+                {% if entity.modified %}
+                <li class="modified">
+                <time title="{{ entity.modified.isoformat() }}" datetime="{{ entity.modified.isoformat() }}">Modified on {{ entity.locale_modified }}</time>
+                </li>
+                {% endif %}
+                {% endblock %}
+            </ul>
+        </footer><!-- /.post-info -->
+        {% block entity_logo scoped %}
+        {% if entity.logo %}
+        <img class="entity-logo" src="{{ entity.logo | thumbnail("200x200") }}" />
+        {% endif %}
+        {% endblock %}
+        {% block entity_content scoped %}
+        <div class="entity-content">
+            {{ entity.content }}
+        </div><!-- /.entry-content -->
+        {% endblock %}
+        {% block entity_after_content scoped %}
+        {% if entity.gallery %}
+        <div class="entity-gallery">
+            Gallery:
+            <ul>
+                {% for image in entity.gallery %}
+                <li><a href="{{ image.url }}"><img src="{{ image.url | thumbnail("100x100") }}" title="{{ image.description }}" /></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% if entity.attachments %}
+        <div class="entity-attachments">
+            Attachments:
+            <ul>
+                {% for attachment in entity.attachments %}
+                <li><a href="{{ attachment.url }}">{{ attachment.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endblock %}
+    </div>
+</article>
+{% endblock %}

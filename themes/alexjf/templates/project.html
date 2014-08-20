@@ -1,58 +1,37 @@
-{% extends "base.html" %}
-{% block head %}
-{{ super() }}
-{% set project = entity %}
-{% for keyword in project.keywords %}
-<meta name="keywords" contents="{{keyword}}" />
-{% endfor %}
-
-{% for description in project.description %}
-<meta name="description" contents="{{description}}" />
-{% endfor %}
-
-{% for tag in project.tags %}
-<meta name="tags" contents="{{tag}}" />
-{% endfor %}
-
-{% endblock %}
-
-{% block title %}{{ entity.title }}{%endblock%}
+{% extends "entity.html" %}
 
 {% block breadcrumbs %}
-<li><a href="projects/">Projects</a></li>
-<li><a href="projects/category/{{ entity.category.slug }}">{{ entity.category.name | title }}</a></li>
+<li><a href="{{ SITEURL }}/blog/">Blog</a></li>
+<li><a href="{{ SITEURL }}/{{ entity.category.url }}">{{ entity.category.name | title }}</a></li>
 <li>{{ entity.title }}</li>
 {% endblock %}
 
-{% block content %}
-{% set project = entity %}
-<section id="content" class="body">
-    <header>
-        <h2 class="entry-title">
-            <a href="{{ SITEURL }}/{{ project.url }}" rel="bookmark"
-                title="Permalink to {{ project.title|striptags }}">{{ project.title }}</a></h2>
-        {% import 'translations.html' as translations with context %}
-        {{ translations.translations_for(project) }}
-    </header>
-    <footer class="post-info">
-        <abbr class="published" title="{{ project.date.isoformat() }}">
-            {{ project.locale_date }}
-        </abbr>
-        {% if project.modified %}
-        <abbr class="modified" title="{{ project.modified.isoformat() }}">
-            {{ project.locale_modified }}
-        </abbr>
-        {% endif %}
-        {% if project.authors %}
-        <address class="vcard author">
-            By {% for author in project.authors %}
-            <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-            {% endfor %}
-        </address>
-        {% endif %}
-    </footer><!-- /.post-info -->
-    <div class="entry-content">
-        {{ project.content }}
-    </div><!-- /.entry-content -->
-</section>
+{% block entity_metadata %}
+    <li class="category">
+        Category: <a href="{{ SITEURL }}/{{ entity.category.url }}">{{ entity.category.name | title }}</a>
+    </li>
+
+    {% if entity.project_authors %}
+    <li class="project-authors">
+        Authors: {{ entity.project_authors }}
+    </li>
+    {% endif %}
+
+    {% if entity.project_start %}
+    <li class="project-start">
+        Start date: {{ entity.project_start }}
+    </li>
+    {% endif %}
+
+    {% if entity.project_version %}
+    <li class="project-version">
+        Version: {{ entity.project_version }}
+    </li>
+    {% endif %}
+
+    {% if entity.project_status %}
+    <li class="project-status">
+        Status: {{ entity.project_status }}
+    </li>
+    {% endif %}
 {% endblock %}

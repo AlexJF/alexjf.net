@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/favicon.ico">
+
     {% assets filters="less,cssmin", output="css/style.min.css", "less/style.less" %}
     <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
     {% endassets %}

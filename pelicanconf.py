@@ -19,6 +19,7 @@ PLUGINS = ["entities", "assets", "autostatic", "advthumbnailer"]
 
 PATH = "content"
 
+DEFAULT_DATE_FORMAT = "%a, %d %B %Y"
 TIMEZONE = "Europe/Paris"
 
 DEFAULT_LANG = "en"
@@ -58,6 +59,14 @@ DEFAULT_DATE = "fs"
 
 DIRECT_TEMPLATES = []
 PAGINATED_DIRECT_TEMPLATES = []
+
+STATIC_PATHS = [
+    'images/favicon.ico',
+    ]
+
+EXTRA_PATH_METADATA = {
+    'images/favicon.ico': {'path': 'favicon.ico'},
+    }
 
 ENTITY_TYPES = {
     "Page": {
@@ -100,7 +109,6 @@ ENTITY_TYPES = {
 MD_EXTENSIONS = ["codehilite(css_class=highlight)",
                  "extra",
                  "toc",
-                 "linkify",
                  "textalign",
                  "extra.markdown.mdx_collapse"
                 ]

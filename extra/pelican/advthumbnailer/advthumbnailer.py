@@ -14,6 +14,9 @@ from pelican.utils import mkdir_p
 
 from bs4 import BeautifulSoup
 
+from jinja2.ext import Extension
+
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
@@ -34,6 +37,10 @@ def recognize_thumbnail(path):
 
 
 def original_to_thumbnail_path(path, spec):
+    logger.debug("ORIGINAL_TO_THUMBNAIL {} {}".format(path, spec))
+    # Get original path just in case path is already a thumbnail to prevent
+    # thumbnail nesting
+    path = thumbnail_to_original_path(path)
     return os.path.join(os.path.dirname(path),
             DEFAULT_THUMBNAIL_PATHER.format(
                 filename=os.path.basename(path),
@@ -56,7 +63,7 @@ class Thumbnailer(object):
         return image
 
     def _exact_resize(self, w, h, image):
-        retval = ImageOps.fit(image, (w,h), Image.BICUBIC)
+        retval = ImageOps.fit(image, (w,h), Image.ANTIALIAS)
         return retval
 
     def _aspect_resize(self, w, h, image):
@@ -149,6 +156,17 @@ def find_image_urls_in_file(file_path):
         return [img["src"] for img in imgs]
 
 
+class JinjaThumbnailExtension(Extension):
+    def __init__(self, environment):
+        super(JinjaThumbnailExtension, self).__init__(environment)
+
+        environment.filters['thumbnail'] = original_to_thumbnail_path
+
+
+def add_jinja2_ext(pelican):
+    pelican.settings['JINJA_EXTENSIONS'].append(JinjaThumbnailExtension)
+
+
 def find_missing_images(pelican):
     global enabled
     if not enabled:
@@ -193,5 +211,6 @@ def autostatic_path_found(sender, autostatic_path):
 
 
 def register():
+    signals.initialized.connect(add_jinja2_ext)
     signals.finalized.connect(find_missing_images)
     signal("autostatic_path_found").connect(autostatic_path_found)

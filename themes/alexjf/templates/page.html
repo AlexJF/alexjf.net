@@ -1,17 +1,13 @@
-{% extends "base.html" %}
-{% block title %}{{ entity.title }}{% endblock %}
+{% extends "entity.html" %}
 {% block breadcrumbs %}
 <li>{{ entity.title }}</li>
 {% endblock %}
-{% block content %}
-{% set page = entity %}
-<h1>{{ page.title }}</h1>
+
+{% block entity_header scoped %}
+<h2 class="entity-title">{{ entity.title }}</h2>
 {% import 'translations.html' as translations with context %}
-{{ translations.translations_for(page) }}
+{{ translations.translations_for(entity) }}
+{% endblock %}
 
-{{ page.content }}
-
-{% if page.modified %}
-<p>Last updated: {{ page.locale_modified }}</p>
-{% endif %}
+{% block entity_metadata %}
 {% endblock %}

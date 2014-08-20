@@ -1,58 +1,21 @@
-{% extends "base.html" %}
-
-{% block head %}
-{{ super() }}
-{% set article = entity %}
-{% for keyword in article.keywords %}
-<meta name="keywords" contents="{{keyword}}" />
-{% endfor %}
-
-{% for description in article.description %}
-<meta name="description" contents="{{description}}" />
-{% endfor %}
-
-{% for tag in article.tags %}
-<meta name="tags" contents="{{tag}}" />
-{% endfor %}
-{% endblock %}
-
-{% block title %}{{ entity.title }}{%endblock%}
+{% extends "entity.html" %}
 
 {% block breadcrumbs %}
-<li><a href="blog/">Blog</a></li>
-<li><a href="blog/category/{{ entity.category.slug }}">{{ entity.category.name | title }}</a></li>
+<li><a href="{{ SITEURL }}/blog/">Blog</a></li>
+<li><a href="{{ SITEURL }}/{{ entity.category.url }}">{{ entity.category.name | title }}</a></li>
 <li>{{ entity.title }}</li>
 {% endblock %}
 
-{% block content %}
-{% set article = entity %}
-<section id="content" class="body">
-    <header>
-        <h2 class="entry-title">
-            <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-                title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
-        {% import 'translations.html' as translations with context %}
-        {{ translations.translations_for(article) }}
-    </header>
-    <footer class="post-info">
-        <abbr class="published" title="{{ article.date.isoformat() }}">
-            {{ article.locale_date }}
-        </abbr>
-        {% if article.modified %}
-        <abbr class="modified" title="{{ article.modified.isoformat() }}">
-            {{ article.locale_modified }}
-        </abbr>
-        {% endif %}
-        {% if article.authors %}
-        <address class="vcard author">
-            By {% for author in article.authors %}
-            <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-            {% endfor %}
-        </address>
-        {% endif %}
-    </footer><!-- /.post-info -->
-    <div class="entry-content">
-        {{ article.content }}
-    </div><!-- /.entry-content -->
-</section>
+{% block entity_logo scoped %}
+    {% if entity.logo %}
+    <img class="entity-logo" src="{{ entity.logo | thumbnail("480x480") }}" />
+    {% endif %}
+{% endblock %}
+
+{% block entity_metadata %}
+    {{ super() }}
+    
+    <li class="category">
+        Category: <a href="{{ SITEURL }}/{{ entity.category.url }}">{{ entity.category.name | title }}</a>
+    </li>
 {% endblock %}

@@ -1,4 +1,5 @@
 Title: Hadoop YARN Installation: The definitive guide
+Logo: {static images/elephant_sq.png}
 Modified: 2014-06-27
 Tags: Hadoop, HDFS, YARN
 Summary: This article guides you in the installation of the new generation
@@ -14,9 +15,9 @@ Summary: This article guides you in the installation of the new generation
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- AlexJF - Hadoop Tutorial -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-7030271622919244"
-     data-ad-slot="3415995911"></ins>
+style="display:inline-block;width:728px;height:90px"
+data-ad-client="ca-pub-7030271622919244"
+data-ad-slot="3415995911"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -77,17 +78,17 @@ The main HDFS configuration file is located at `$HADOOP_PREFIX/etc/hadoop/hdfs-s
 
 ```xml
 <configuration>
-  <property>
-    <name>dfs.datanode.data.dir</name>
-    <value>file:///home/alex/Programs/hadoop-2.2.0/hdfs/datanode</value>
-    <description>Comma separated list of paths on the local filesystem of a DataNode where it should store its blocks.</description>
-  </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///home/alex/Programs/hadoop-2.2.0/hdfs/datanode</value>
+        <description>Comma separated list of paths on the local filesystem of a DataNode where it should store its blocks.</description>
+    </property>
 
-  <property>
-    <name>dfs.namenode.name.dir</name>
-    <value>file:///home/alex/Programs/hadoop-2.2.0/hdfs/namenode</value>
-    <description>Path on the local filesystem where the NameNode stores the namespace and transaction logs persistently.</description>
-  </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///home/alex/Programs/hadoop-2.2.0/hdfs/namenode</value>
+        <description>Path on the local filesystem where the NameNode stores the namespace and transaction logs persistently.</description>
+    </property>
 </configuration>
 ```
 
@@ -95,11 +96,11 @@ Make sure to replace `/home/alex/Programs/hadoop-2.2.0` with whatever you set `$
 
 ```xml
 <configuration>
-  <property>
-    <name>fs.defaultFS</name>
-    <value>hdfs://localhost/</value>
-    <description>NameNode URI</description>
-  </property>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost/</value>
+        <description>NameNode URI</description>
+    </property>
 </configuration>
 ```
 
@@ -110,36 +111,36 @@ To configure YARN, the relevant file is `$HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 
 ```xml
 <configuration>
-  <property>
-    <name>yarn.scheduler.minimum-allocation-mb</name>
-    <value>128</value>
-    <description>Minimum limit of memory to allocate to each container request at the Resource Manager.</description>
-  </property>
-  <property>
-    <name>yarn.scheduler.maximum-allocation-mb</name>
-    <value>2048</value>
-    <description>Maximum limit of memory to allocate to each container request at the Resource Manager.</description>
-  </property>
-  <property>
-    <name>yarn.scheduler.minimum-allocation-vcores</name>
-    <value>1</value>
-    <description>The minimum allocation for every container request at the RM, in terms of virtual CPU cores. Requests lower than this won't take effect, and the specified value will get allocated the minimum.</description>
-  </property>
-  <property>
-    <name>yarn.scheduler.maximum-allocation-vcores</name>
-    <value>2</value>
-    <description>The maximum allocation for every container request at the RM, in terms of virtual CPU cores. Requests higher than this won't take effect, and will get capped to this value.</description>
-  </property>
-  <property>
-    <name>yarn.nodemanager.resource.memory-mb</name>
-    <value>4096</value>
-    <description>Physical memory, in MB, to be made available to running containers</description>
-  </property>
-  <property>
-    <name>yarn.nodemanager.resource.cpu-vcores</name>
-    <value>4</value>
-    <description>Number of CPU cores that can be allocated for containers.</description>
-  </property>
+    <property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>128</value>
+        <description>Minimum limit of memory to allocate to each container request at the Resource Manager.</description>
+    </property>
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>2048</value>
+        <description>Maximum limit of memory to allocate to each container request at the Resource Manager.</description>
+    </property>
+    <property>
+        <name>yarn.scheduler.minimum-allocation-vcores</name>
+        <value>1</value>
+        <description>The minimum allocation for every container request at the RM, in terms of virtual CPU cores. Requests lower than this won't take effect, and the specified value will get allocated the minimum.</description>
+    </property>
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>2</value>
+        <description>The maximum allocation for every container request at the RM, in terms of virtual CPU cores. Requests higher than this won't take effect, and will get capped to this value.</description>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>4096</value>
+        <description>Physical memory, in MB, to be made available to running containers</description>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>4</value>
+        <description>Number of CPU cores that can be allocated for containers.</description>
+    </property>
 </configuration>
 ```
 
@@ -200,11 +201,11 @@ In the HDFS configuration, the only thing you are really required to change is t
 
 ```xml
 <configuration>
-  <property>
-    <name>fs.defaultFS</name>
-    <value>hdfs://namenode.alexjf.net/</value>
-    <description>NameNode URI</description>
-  </property>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://namenode.alexjf.net/</value>
+        <description>NameNode URI</description>
+    </property>
 </configuration>
 ```
 
@@ -213,11 +214,11 @@ For the YARN configuration, you can customize the entries we saw on the single-n
 
 ```xml
 <configuration>
-        <property>
-                <name>yarn.resourcemanager.hostname</name>
-                <value>resourcemanager.alexjf.net</value>
-                <description>The hostname of the RM.</description>
-        </property>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>resourcemanager.alexjf.net</value>
+        <description>The hostname of the RM.</description>
+    </property>
 </configuration>
 ```
 
@@ -377,11 +378,11 @@ The jobtracker configuration specifies which node of the cluster should be respo
 In addition to the configuration in `mapred-site.xml`, we also need to setup a prerequisite for MapReduce in `yarn-site.xml`: the mapreduce_shuffle auxiliary service. Just add the following to the end of `yarn-site.xml`:
 
 ```xml
-  <property>
-    <name>yarn.nodemanager.aux-services</name>
-    <value>mapreduce_shuffle</value>
-    <description>shuffle service that needs to be set for Map Reduce to run </description>
-  </property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+        <description>shuffle service that needs to be set for Map Reduce to run </description>
+    </property>
 ```
 
 With this configuration, you should already be able to run MapReduce jobs.
@@ -501,11 +502,11 @@ By default, Hadoop stores the logs of each container in the node where that cont
 Log aggregation is a new feature that allows Hadoop to store the logs of each application in a central directory in HDFS. To activate it, just add the following to `yarn-site.xml` and restart the Hadoop services:
 
 ```xml
-  <property>
-    <description>Whether to enable log aggregation</description>
-    <name>yarn.log-aggregation-enable</name>
-    <value>true</value>
-  </property>
+    <property>
+        <description>Whether to enable log aggregation</description>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
 ```
 
 By adding this option, you're telling Hadoop to move the application logs to `hdfs:///logs/userlogs/<your user>/<app id>`. You can change this path and other options related to log aggregation by specifying some other properties mentioned in the [default yarn-site.xml](http://hadoop.apache.org/docs/current2/hadoop-yarn/hadoop-yarn-common/yarn-default.xml) (just do a search for `log.aggregation`).
@@ -544,14 +545,14 @@ Unfortunately, a generic history daemon for universal web access to aggregated l
 HDFS is able to read and write data from/to [S3](http://aws.amazon.com/s3/) buckets. To achieve this, `core-site.xml` has to be changed to include details about the [AWS Access Key](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSGettingStartedGuide/AWSCredentials.html):
 
 ```xml
-<property>
-    <name>fs.s3n.awsAccessKeyId</name>
-    <value>YOUR_KEY_ID</value>
-</property>
-<property>
-    <name>fs.s3n.awsSecretAccessKey</name>
-    <value>YOUR_SECRET_KEY</value>
-</property>
+    <property>
+        <name>fs.s3n.awsAccessKeyId</name>
+        <value>YOUR_KEY_ID</value>
+    </property>
+    <property>
+        <name>fs.s3n.awsSecretAccessKey</name>
+        <value>YOUR_SECRET_KEY</value>
+    </property>
 ```
 
 You can now read/write to a bucket using the following commands (they apply to both files and folders):

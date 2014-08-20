@@ -1,52 +1,15 @@
 {% extends "page.html" %}
+{% from "teaser.html" import teaser_list with context %}
 {% block content %}
 <section id="content">
     {{ entity.content }}
 </section><!-- /#content -->
 <section id="latest-blog">
     <h2>Latest Blog Entries</h2>
-    <ol>
-    {% for article in article.entities[:3] %}
-        <li>
-            <article class="hentry">
-                <header> <h2 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2> </header>
-                <footer class="post-info">
-                    <abbr class="published" title="{{ article.date.isoformat() }}"> {{ article.locale_date }} </abbr>
-                    <address class="vcard author">By
-                    {% for author in article.authors %}
-                        <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> {{ article.summary }} </div><!-- /.entry-content -->
-            </article>
-        </li>
-    {% else %}
-        <li>No entries found</li>
-    {% endfor %}
-    </ol>
+    {{ teaser_list(article, 3) }}
 </section>
 <section id="latest-projects">
     <h2>Latest Projects</h2>
-    <ol>
-    {% for project in project.entities[:3] %}
-        <li>
-            <article class="hentry">
-                <header> <h2 class="entry-title"><a href="{{ SITEURL }}/{{ project.url }}" rel="bookmark" title="Permalink to {{ project.title|striptags }}">{{ project.title }}</a></h2> </header>
-                <footer class="post-info">
-                    <abbr class="published" title="{{ project.date.isoformat() }}"> {{ project.locale_date }} </abbr>
-                    <address class="vcard author">By
-                    {% for author in project.authors %}
-                        <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> {{ project.summary }} </div><!-- /.entry-content -->
-            </article>
-        </li>
-    {% else %}
-        <li>No entries found</li>
-    {% endfor %}
-    </ol>
+    {{ teaser_list(project, 3, show_date=False) }}
 </section>
 {% endblock content %}

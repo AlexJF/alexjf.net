@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "Lettering.js": "~0.6.1"
+    "Lettering.js": "~0.6.1",
+    "pygments": "~1.6.1"
   }
 }

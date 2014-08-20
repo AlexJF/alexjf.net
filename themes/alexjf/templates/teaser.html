@@ -1,0 +1,43 @@
+{% macro teaser(entity, show_date) %}
+<article class="teaser {{ entity.type | lower }}-teaser">
+    <img class="entity-logo" src="{{ (entity.logo if entity.logo else SITEURL + "/theme/images/noimage.png") | thumbnail("100x100") }}" />
+    <div class="entity-body">
+        <header> <h2 class="entity-title"><a href="{{ SITEURL }}/{{ entity.url }}" rel="bookmark" title="Permalink to {{ entity.title|striptags }}">{{ entity.title }}</a></h2> </header>
+        <footer class="entity-info">
+            <ul>
+                {% if show_date %}
+                <li class="published">
+                    <time title="{{ entity.date.isoformat() }}" datetime="{{ entity.date.isoformat() }}">Submitted on {{ entity.locale_date }} </time>
+                </li>
+                {% endif %}
+                {% if entity.category %}
+                <li class="category">
+                    Category: <a href="{{ SITEURL }}/{{ entity.category.url }}">{{ entity.category.name | title }}</a>
+                </li>
+                {% endif %}
+            </ul>
+        </footer><!-- /.post-info -->
+        <div class="entity-content"> {{ entity.summary }} </div><!-- /.entry-content -->
+    </div>
+</article>
+{% endmacro %}
+
+{% macro _teaser_list(entities, entity_type, limit=None, show_date=True) %}
+    <ol class="entity-list teaser-list {{ entity_type | lower }}-list">
+    {% for entity in entities[:limit] %}
+        <li>
+            {{ teaser(entity, show_date) }}
+        </li>
+    {% else %}
+        <li>No entries found</li>
+    {% endfor %}
+    </ol>
+{% endmacro %}
+
+{% macro teaser_list(entity_obj, limit=None, show_date=True) %}
+{{ _teaser_list(entity_obj.entities, entity_obj.entity_type, limit, show_date) }}
+{% endmacro %}
+
+{% macro teaser_list_paginated(entities_page, entity_type, limit=None, show_date=True) %}
+{{ _teaser_list(entities_page.object_list, entity_type, limit, show_date) }}
+{% endmacro %}

@@ -40,8 +40,12 @@ def get_generators(pelican_object):
     return EntityGenerator
 
 
+def debug_static(static):
+    print("LOOOOOL %s" % static.path)
+
 def register():
     signals.get_generators.connect(get_generators)
+    signals.static_generator_preread.connect(debug_static)
 
 
 def get_default_entity_type_settings(entity_type):
@@ -106,7 +110,8 @@ def EntityFactory(name, mandatory_properties, default_template, BaseClass=Entity
     base_mandatory_properties = ['title', 'date']
     mandatory_properties = set(base_mandatory_properties + mandatory_properties)
     newclass = type(name, (BaseClass,),
-                    {'mandatory_properties': mandatory_properties,
+                    {'type': name,
+                     'mandatory_properties': mandatory_properties,
                      'default_template': default_template})
     return newclass
 
@@ -484,6 +489,7 @@ class EntityGenerator(generators.Generator):
 
         def get_context(self):
             context = self.SubGeneratorContext()
+            context.type = self.entity_type
             context.entities = self.entities
             context.translations = self.translations
             context.tags = self.tags
