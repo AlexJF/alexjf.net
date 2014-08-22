@@ -160,7 +160,6 @@ class EntityGenerator(generators.Generator):
                                       feed_type='rss')
 
             for cat, entities in self.categories:
-                entities.sort(key=attrgetter('date'), reverse=True)
                 if self.settings.get('CATEGORY_FEED_ATOM'):
                     writer.write_feed(entities, self.context,
                                       self.settings['CATEGORY_FEED_ATOM']
@@ -172,7 +171,6 @@ class EntityGenerator(generators.Generator):
                                       % cat.slug, feed_type='rss')
 
             for auth, entities in self.authors:
-                entities.sort(key=attrgetter('date'), reverse=True)
                 if self.settings.get('AUTHOR_FEED_ATOM'):
                     writer.write_feed(entities, self.context,
                                       self.settings['AUTHOR_FEED_ATOM']
@@ -186,7 +184,6 @@ class EntityGenerator(generators.Generator):
             if (self.settings.get('TAG_FEED_ATOM')
                     or self.settings.get('TAG_FEED_RSS')):
                 for tag, entities in self.tags.items():
-                    entities.sort(key=attrgetter('date'), reverse=True)
                     if self.settings.get('TAG_FEED_ATOM'):
                         writer.write_feed(entities, self.context,
                                           self.settings['TAG_FEED_ATOM']
@@ -204,7 +201,6 @@ class EntityGenerator(generators.Generator):
                     translations_feeds[content.lang].append(entity)
 
                 for lang, items in translations_feeds.items():
-                    items.sort(key=attrgetter('date'), reverse=True)
                     if self.settings.get('TRANSLATION_FEED_ATOM'):
                         writer.write_feed(
                             items, self.context,
@@ -309,7 +305,6 @@ class EntityGenerator(generators.Generator):
 
             tag_template = self.get_template(self.settings['TAG_TEMPLATE'])
             for tag, entities in self.tags.items():
-                entities.sort(key=attrgetter('date'), reverse=True)
                 write(tag.save_as, tag_template, self.context, tag=tag,
                       entities=entities, paginated={'entities': entities},
                       entity_type=self.entity_type,
@@ -323,7 +318,6 @@ class EntityGenerator(generators.Generator):
 
             category_template = self.get_template(self.settings['CATEGORY_TEMPLATE'])
             for cat, entities in self.categories:
-                entities.sort(key=attrgetter('date'), reverse=True)
                 write(cat.save_as, category_template, self.context,
                       category=cat, entities=entities,
                       paginated={'entities': entities},
@@ -338,7 +332,6 @@ class EntityGenerator(generators.Generator):
 
             author_template = self.get_template(self.settings['AUTHOR_TEMPLATE'])
             for aut, entities in self.authors:
-                entities.sort(key=attrgetter('date'), reverse=True)
                 write(aut.save_as, author_template, self.context,
                       author=aut, entities=entities,
                       paginated={'entities': entities},
@@ -416,6 +409,17 @@ class EntityGenerator(generators.Generator):
             self.drafts, self.drafts_translations = \
                 process_translations(all_drafts)
 
+            # sort the entities by date
+            custom_sort_attr = self.settings.get("SORT_ATTRIBUTES", None)
+
+            sort_attrs = ["date"]
+
+            if custom_sort_attr:
+                sort_attrs = [x.strip() for x in custom_sort_attr.split(',')] \
+                    + sort_attrs
+
+            self.entities.sort(key=attrgetter(*sort_attrs), reverse=True)
+
             entity_subgenerator_pretaxonomy.send(self)
 
             for entity in self.entities:
@@ -430,16 +434,6 @@ class EntityGenerator(generators.Generator):
                 for author in getattr(entity, 'authors', []):
                     if author.name != '':
                         self.authors[author].append(entity)
-            # sort the entities by date
-            custom_sort_attr = self.settings.get("SORT_ATTRIBUTES", None)
-
-            sort_attrs = ["date"]
-
-            if custom_sort_attr:
-                sort_attrs = [x.strip() for x in custom_sort_attr.split(',')] \
-                    + sort_attrs
-
-            self.entities.sort(key=attrgetter(*sort_attrs), reverse=True)
 
             # create tag cloud
             tag_cloud = defaultdict(int)

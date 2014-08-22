@@ -79,10 +79,10 @@ Title: About Me
 **Experience with:**
 
 * Programming languages & main libraries:
-    * C and C++11 (plus SDL/wxWidgets/OpenGL/QT)
-    * Python (plus Numpy, Scipy, Boto, Paramiko, Flask, Django)
+    * C and C++11 (SDL/wxWidgets/OpenGL/QT)
+    * Python (Numpy, Scipy, Boto, Paramiko, Flask, Django, Pelican)
     * Java (GWT, Jgroups)
-    * JavaScript (plus JQuery, Processing.js, Node.js, AngularJS, Bootstrap)
+    * JavaScript (JQuery, Processing.js, Node.js, AngularJS, Bootstrap)
     * PHP (Frameworks: CakePHP, Laravel | CMS: Drupal, Wordpress, CMSMS)
     * VB.NET, C#.
     * HTML 5, CSS (Grid, Responsive, Bootstrap, LESS)
@@ -101,7 +101,7 @@ Title: About Me
 * Server Administration and Configuration:
     * Configuration from scratch of Linux servers with software such as LAMP, nginx, iptables, fail2ban, dovecot, postfix, ssh, ftp, ssl management.
     * Setting up Continuous Integration (CI) clusters with Jenkins.
-* Operating Systems &amp; distributions:
+* Operating Systems & distributions:
     * Windows XP, Vista, 7, 8
     * Linux: Arch Linux (my main distro), OpenSUSE, Ubuntu, Mint, Fedora, RHEL
 * Control Versioning Systems: Svn, Git, Mercurial
