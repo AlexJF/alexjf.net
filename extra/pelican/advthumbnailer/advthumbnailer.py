@@ -54,7 +54,7 @@ def thumbnail_to_original_path(thumbnail_path):
 class Thumbnailer(object):
     """ Resizes based on a text specification, see readme """
 
-    REGEX = re.compile(r'(\d+|_)x(\d+|_)')
+    REGEX = re.compile(r'(\d+|_)x(\d+|_)(!?)')
 
     def __init__(self):
         pass
@@ -62,7 +62,13 @@ class Thumbnailer(object):
     def _null_resize(self, w, h, image):
         return image
 
-    def _exact_resize(self, w, h, image):
+    def _exact_resize(self, w, h, image, forced=False):
+        image_w, image_h = image.size
+
+        # Do not upscale unless forced
+        if image_w < w and image_h < h and not forced:
+            return image
+
         retval = ImageOps.fit(image, (w,h), Image.ANTIALIAS)
         return retval
 
@@ -80,10 +86,12 @@ class Thumbnailer(object):
             resizer = self._exact_resize
             targetw = int(spec)
             targeth = targetw
+            forced = '!' in spec
         else:
             matches = self.REGEX.search(spec)
             tmpw = matches.group(1)
             tmph = matches.group(2)
+            forced = matches.group(3)
 
             # Full Size
             if tmpw == '_' and tmph == '_':
@@ -110,7 +118,7 @@ class Thumbnailer(object):
                 resizer = self._exact_resize
 
         logging.debug("Using resizer {0}".format(resizer.__name__))
-        return resizer(targetw, targeth, image)
+        return resizer(targetw, targeth, image, forced)
 
 
     def handle_path(self, path):

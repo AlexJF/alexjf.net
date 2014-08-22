@@ -17,7 +17,6 @@ from pelican.contents import Static
 from pelican.utils import mkdir_p
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 autostatic_generator = None
 detected_autostatic_paths = {}
@@ -29,17 +28,22 @@ DEFAULT_STATIC_REF_PATTERN = r"""{static\s+((?:"|')?)(?P<path>[^\1=]+?)\1(?:\s+(
 
 
 def parse_static_references(instance, text):
-    if text is None or not isinstance(text, six.string_types):
+    if text is None:
         return text
 
-    settings = instance.settings
+    if isinstance(text, six.string_types):
+        settings = instance.settings
 
-    static_ref_re_pattern = DEFAULT_STATIC_REF_PATTERN
+        static_ref_re_pattern = DEFAULT_STATIC_REF_PATTERN
 
-    if settings and CUSTOM_STATIC_REF_PATTERN_KEY in settings:
-        static_ref_re_pattern = settings[CUSTOM_STATIC_REF_PATTERN_KEY]
+        if settings and CUSTOM_STATIC_REF_PATTERN_KEY in settings:
+            static_ref_re_pattern = settings[CUSTOM_STATIC_REF_PATTERN_KEY]
 
-    return re.sub(static_ref_re_pattern, get_static_path(instance), text)
+        return re.sub(static_ref_re_pattern, get_static_path(instance), text)
+    elif isinstance(text, list):
+        return [parse_static_references(instance, item) for item in text]
+    else:
+        return text
 
 
 class StaticPath(object):

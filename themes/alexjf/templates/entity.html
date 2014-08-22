@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "colorbox.html" import colorbox with context %}
 
 {% block head %}
 {{ super() }}
@@ -57,17 +58,17 @@
         {% block entity_after_content scoped %}
         {% if entity.gallery %}
         <div class="entity-gallery">
-            Gallery:
+            <h3>Gallery:</h3>
             <ul>
                 {% for image in entity.gallery %}
-                <li><a href="{{ image.url }}"><img src="{{ image.url | thumbnail("100x100") }}" title="{{ image.description }}" /></a></li>
+                <li>{{ colorbox(image.url, image.description) }}</li>
                 {% endfor %}
             </ul>
         </div>
         {% endif %}
         {% if entity.attachments %}
         <div class="entity-attachments">
-            Attachments:
+            <h3>Attachments:</h3>
             <ul>
                 {% for attachment in entity.attachments %}
                 <li><a href="{{ attachment.url }}">{{ attachment.name }}</a></li>

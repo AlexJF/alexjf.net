@@ -67,13 +67,15 @@
     {% assets filters="uglifyjs", output="js/packed.js", 
        "bower_components/jquery/dist/jquery.min.js", 
        "bower_components/bootstrap/dist/js/bootstrap.min.js", 
-       "bower_components/Lettering.js/jquery.lettering.js" %}
+       "bower_components/Lettering.js/jquery.lettering.js",
+       "bower_components/magnific-popup/dist/jquery.magnific-popup.min.js" %}
     <script src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
     {% endassets %}
     <script>
       $(document).ready(function() {
         $(".lettered").lettering();
         $(".worded").lettering('words');
+        $('a.image-box').magnificPopup({type:'image', gallery: {enabled: true}});
       });
     </script>
 </body>

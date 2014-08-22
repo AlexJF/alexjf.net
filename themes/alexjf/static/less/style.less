@@ -25,6 +25,7 @@
 
 @import '../bower_components/bootstrap/less/bootstrap';
 @import '../bower_components/pygments/css/colorful.css';
+@import '../bower_components/magnific-popup/dist/magnific-popup.css';
 
 @font-family-base: Verdana,Helvetica,Arial,sans-serif;
 
@@ -296,6 +297,7 @@ footer.site {
     #powered-by, #social {
         .make-sm-column(3);
         .vertical-align-sm;
+        padding: 0;
     }
 
     #powered-by {
@@ -308,6 +310,7 @@ footer.site {
         .make-sm-column(6);
         .vertical-align-sm;
         text-align: center;
+        padding: 0;
     }
 
     #social ul {
@@ -476,15 +479,39 @@ div.toc {
 
 }
 
-.entity-content {
-    h2 {
-        border-top: 1px solid @site-border;
-        margin-top: 2rem;
-        padding-top: 2rem;
+.entity-body {
+    .entity-content {
+        h2 {
+            border-top: 1px solid @site-border;
+            margin-top: 2rem;
+            padding-top: 2rem;
 
-        &:first-of-type {
-            margin-top: 0;
-            border: 0;
+            &:first-of-type {
+                margin-top: 0;
+                border: 0;
+            }
+        }
+    }
+
+    .entity-gallery {
+        overflow: hidden;
+
+        ul {
+            display: table;
+            list-style: none;
+            margin-left: auto;
+            margin-right: auto;
+
+            li {
+                float: left;
+                margin: 0.5rem;
+
+                a {
+                    display: block;
+                    border: 1px solid @site-border;
+                    padding: 0.5rem;
+                }
+            }
         }
     }
 }

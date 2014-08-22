@@ -40,12 +40,8 @@ def get_generators(pelican_object):
     return EntityGenerator
 
 
-def debug_static(static):
-    print("LOOOOOL %s" % static.path)
-
 def register():
     signals.get_generators.connect(get_generators)
-    signals.static_generator_preread.connect(debug_static)
 
 
 def get_default_entity_type_settings(entity_type):
@@ -435,7 +431,15 @@ class EntityGenerator(generators.Generator):
                     if author.name != '':
                         self.authors[author].append(entity)
             # sort the entities by date
-            self.entities.sort(key=attrgetter('date'), reverse=True)
+            custom_sort_attr = self.settings.get("SORT_ATTRIBUTES", None)
+
+            sort_attrs = ["date"]
+
+            if custom_sort_attr:
+                sort_attrs = [x.strip() for x in custom_sort_attr.split(',')] \
+                    + sort_attrs
+
+            self.entities.sort(key=attrgetter(*sort_attrs), reverse=True)
 
             # create tag cloud
             tag_cloud = defaultdict(int)

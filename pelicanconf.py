@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 import os
+import collections
+
+import six
 
 #######################################################################
 #                               GENERAL                               #
@@ -15,7 +18,7 @@ DEBUG = True
 
 THEME = "themes/alexjf"
 PLUGIN_PATHS = ["extra/pelican", "extra/pelican-plugins"]
-PLUGINS = ["entities", "assets", "autostatic", "advthumbnailer"]
+PLUGINS = ["entities", "assets", "autostatic", "advthumbnailer", "metadataparsing"]
 
 PATH = "content"
 
@@ -68,6 +71,68 @@ EXTRA_PATH_METADATA = {
     'images/favicon.ico': {'path': 'favicon.ico'},
     }
 
+
+Attachment = collections.namedtuple("Attachment", ["url", "name"])
+def parse_attachments(string):
+    if string is None or not isinstance(string, collections.Iterable):
+        return None
+
+    if not isinstance(string, six.string_types):
+        string = '\n'.join(string)
+
+    attachments = []
+
+    for line in string.split('\n'):
+        if not line:
+            continue
+
+        parts = line.split("||")
+
+        url = parts[0].strip()
+
+        if len(parts) == 1:
+            name = url
+        else:
+            name = parts[1].strip()
+
+        attachments.append(Attachment(url, name))
+
+    return attachments
+
+
+GalleryItem = collections.namedtuple("GalleryItem", ["url", "description"])
+def parse_gallery(string):
+    if string is None or not isinstance(string, collections.Iterable):
+        return None
+
+    if not isinstance(string, six.string_types):
+        string = '\n'.join(string)
+
+    items = []
+
+    for line in string.split('\n'):
+        if not line:
+            continue
+
+        parts = line.split("||")
+
+        url = parts[0].strip()
+
+        if len(parts) == 1:
+            description = None
+        else:
+            description = parts[1].strip()
+
+        items.append(GalleryItem(url, description))
+
+    return items
+
+
+METADATA_PARSERS = {
+    "Attachments": parse_attachments,
+    "Gallery": parse_gallery,
+}
+
 ENTITY_TYPES = {
     "Page": {
         "PATHS": ["."],
@@ -90,9 +155,10 @@ ENTITY_TYPES = {
     },
     "Project": {
         "PATHS": ["projects"],
+        "SORT_ATTRIBUTES": "project_start",
         "PROJECT_URL": "projects/{category}/{slug}/",
         "PROJECT_SAVE_AS": "projects/{category}/{slug}/index.html",
-        "PATH_METADATA": r".*/(?P<category>[^/]+)/(?P<date>\d{4}/\d{2}/\d{2})/(?P<slug>[^/]+)/.*",
+        "PATH_METADATA": r".*/(?P<category>[^/]+)/(?P<slug>[^/]+)/.*",
         "DIRECT_TEMPLATES": ["projects"],
         "PAGINATED_DIRECT_TEMPLATES": ["projects"],
         "PROJECTS_SAVE_AS": "projects/index.html",
