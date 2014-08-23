@@ -18,7 +18,7 @@ DEBUG = True
 
 THEME = "themes/alexjf"
 PLUGIN_PATHS = ["extra/pelican", "extra/pelican-plugins"]
-PLUGINS = ["entities", "assets", "autostatic", "advthumbnailer", "metadataparsing"]
+PLUGINS = ["entities", "assets", "summary", "autostatic", "advthumbnailer", "metadataparsing"]
 
 PATH = "content"
 
@@ -132,6 +132,11 @@ METADATA_PARSERS = {
     "Attachments": parse_attachments,
     "Gallery": parse_gallery,
 }
+
+PAGINATION_PATTERNS = (
+    (1, '{base_name}/', '{base_name}/index.html'),
+    (2, '{base_name}/page/{number}/', '{base_name}/page/{number}/index.html'),
+)
 
 ENTITY_TYPES = {
     "Page": {

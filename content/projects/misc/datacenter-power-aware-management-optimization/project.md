@@ -15,6 +15,8 @@ In this project we were tasked with the solving of an Integer Linear Program
 (ILP) for Datacenter Power-aware Management using existing ILP solvers and
 heuristic-based solvers we created ourselves.
 
+<!-- PELICAN_END_SUMMARY -->
+
 For the 1st part, we used the model developed in [An Integer Linear Programming
 Representation for DataCenter Power-Aware Management](
 "http://upcommons.upc.edu/e-prints/bitstream/2117/11061/1/R10-21.pdf") and ran

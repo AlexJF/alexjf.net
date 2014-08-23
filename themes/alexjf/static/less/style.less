@@ -87,17 +87,21 @@
 .float-right-or-center-sm {
     .float-right-sm;
 
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+    @media (max-width: @screen-sm-min) {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
 
 .float-left-or-center-sm {
     .float-left-sm;
 
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+    @media (max-width: @screen-sm-min) {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
 
 // # Global
@@ -271,6 +275,44 @@ main {
 
     padding: 2.5rem;
     padding-bottom: 0.5rem;
+
+    .paginator {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+
+        background: #ebebeb;
+        border: 1px solid @site-border;
+        border-radius: 5px;
+
+        a, span {
+            display: table-cell;
+            padding: 0.5rem 1rem;
+            color: @site-text-color;
+        }
+
+        a {
+            background: linear-gradient(to bottom, #ffffff 0%,#dddddd 100%);
+        }
+
+        a:hover {
+            background: #FFFFFF;
+            background: linear-gradient(to top, #ffffff 0%,#dddddd 100%);
+            text-decoration: none;
+        }
+
+        .prev {
+            border-right: 1px solid #bbb;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .next {
+            border-left: 1px solid #bbb;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
 }
 
 h2.page-title {
@@ -351,6 +393,38 @@ footer.site {
     }
 }
 // ## Lists
+.categories {
+    .clearfix;
+
+    ul {
+        list-style: none;
+
+        li {
+            float: left;
+            
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+
+            &.active {
+                a {
+                    background-color: @menu-active-background-color;
+                    color: @menu-active-text-color;
+                }
+            }
+
+            a {
+                background-color: @menu-normal-background-color;
+                border-radius: 5px;
+                color: @menu-normal-text-color;
+                display: block;
+                padding: 0.5rem 1rem;
+            }
+        }
+    }
+
+    margin-bottom: 2rem;
+}
+
 .entity-list {
     list-style: none;
 
@@ -371,10 +445,11 @@ article.teaser {
     }
 
     .entity-logo {
+        margin: 1rem 2rem;
+
         .float-left-or-center-sm;
 
         @media (min-width: @screen-sm-min) {
-            margin: 1rem 2rem;
             margin-left: 0;
         }
     }

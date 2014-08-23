@@ -3,10 +3,13 @@ Logo: {static images/logo.jpg}
 Project_Start: 2013/10  
 Project_Status: Finished  
 Project_Authors: Alexandre Fonseca, Anh Thu Vu  
+Attachments:
+    {static files/seqalign.pdf}||Paper
+    {static files/presentation.pdf}||Presentation
 
 This project was created as an assigment for the Implementation of Distributed Systems and Scientific Writing courses during my semester at KTH.
 
-The aim of this project was to find out just how feasible the distribution of the alignment of genome sequences over several machines is in a world that is still largely dominated by single-machine multiple-core sequence aligners. To that end, we evaluated the performance of 5 different aligners with the same input data, focusing on alignment duration and accuracy. The considered aligners were:
+The aim of this project was to find out just how feasible the distribution of the alignment of genome sequences over several machines is in a world that is still largely dominated by single-machine multiple-core sequence aligners. To that end, we evaluated the performance of 5 different aligners with the same input data, focusing on alignment duration and accuracy. <!-- PELICAN_END_SUMMARY -->The considered aligners were:
 
 * Centralized (non-distributed)
     * [Bowtie1](http://bowtie-bio.sourceforge.net) - 1.0.0

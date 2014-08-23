@@ -12,6 +12,8 @@ Attachments:
 L2 Max Launcher is an application which aimed to facilitate the life of the
 players of the Lineage II private server L2Max.
 
+<!-- PELICAN_END_SUMMARY -->
+
 It started as a simple server status checker and, over the course of the next
 few months, it developed into a more complex application, providing automatic
 updates (both to the game files and to the launcher), castle siege schedules,

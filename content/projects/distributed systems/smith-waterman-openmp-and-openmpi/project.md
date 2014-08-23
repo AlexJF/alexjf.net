@@ -15,6 +15,8 @@ Parallel Programming course during my 1st semester at UPC.
 In this project we were tasked with the implementation of parallel versions of
 the Smith-Waterman algorithm for sequence alignment using OpenMP and OpenMPI.
 
+<!-- PELICAN_END_SUMMARY -->
+
 We also had to develop theoretical models for the performance of the
 parallelization and compare it with the results obtained through
 experimentation with the actual implementation.

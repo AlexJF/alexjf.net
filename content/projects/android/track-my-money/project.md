@@ -14,7 +14,13 @@ Gallery:
     {static "images/2013-03-04 20.49.22.png"}||Preferences
 
 
-Track My Money is a simple revenue/expense tracker application for Android. It is built from the ground up with flexibility and security in mind, providing management of data from multiple users using encrypted SQLite databases. It is currently in development and supports Android versions as early as Gingerbread.<!--break-->
+Track My Money is a simple revenue/expense tracker application for Android. It
+is built from the ground up with flexibility and security in mind, providing
+management of data from multiple users using encrypted SQLite databases. It is
+currently in development and supports Android versions as early as
+Gingerbread.
+
+<!-- PELICAN_END_SUMMARY -->
 
 Current features:
 
