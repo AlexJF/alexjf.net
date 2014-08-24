@@ -1,4 +1,5 @@
 Title: About Me
+Disable_Comments: True
 
 <img class="float-right-or-center-sm block" alt="Me!" src="{static me4.jpg thumb=256x256}">
 **Name:** Alexandre Jorge Fonseca  

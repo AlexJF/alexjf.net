@@ -48,6 +48,12 @@
     display: block;
 }
 
+.center {
+    .block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .center-text {
     text-align: center;
 }
@@ -454,12 +460,13 @@ footer.site {
     }
 }
 
+h2.entity-title {
+    margin-bottom: 0rem;
+}
+
+
 // ## Teasers
 article.teaser {
-    h2 {
-        margin-bottom: 0rem;
-    }
-
     .entity-logo {
         margin: 1rem 2rem;
 
@@ -481,10 +488,6 @@ article.teaser {
 
 // ## Full
 article.full {
-    h2 {
-        margin-bottom: 0rem;
-    }
-
     .entity-logo {
         .float-right-or-center-sm;
 
@@ -576,6 +579,11 @@ div.toc {
 
 .entity-body {
     .entity-content {
+        h1, h2, h3, h4, h5, h6 {
+            .clearfix;
+            overflow: hidden;
+        }
+
         h2 {
             border-top: 1px solid @site-border;
             margin-top: 2rem;

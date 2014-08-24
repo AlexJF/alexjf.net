@@ -148,15 +148,15 @@ ENTITY_TYPES = {
     },
     "Article": {
         "PATHS": ["blog"],
-        "ARTICLE_URL": "blog/{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}/",
-        "ARTICLE_SAVE_AS": "blog/{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html",
+        "ARTICLE_URL": "blog/{category}/{slug}/",
+        "ARTICLE_SAVE_AS": "blog/{category}/{slug}/index.html",
         "PATH_METADATA": r".*/(?P<category>[^/]+)/(?P<date>\d{4}/\d{2}/\d{2})/(?P<slug>[^/]+)/.*",
         "DIRECT_TEMPLATES": ["blog"],
         "PAGINATED_DIRECT_TEMPLATES": ["blog"],
         "BLOG_SAVE_AS": "blog/index.html",
         "CATEGORY_TEMPLATE": "blog_category",
-        "CATEGORY_URL": 'blog/category/{slug}/',
-        "CATEGORY_SAVE_AS": os.path.join('blog', 'category', '{slug}', 'index.html')
+        "CATEGORY_URL": 'blog/{slug}/',
+        "CATEGORY_SAVE_AS": os.path.join('blog', '{slug}', 'index.html')
     },
     "Project": {
         "PATHS": ["projects"],
@@ -168,8 +168,8 @@ ENTITY_TYPES = {
         "PAGINATED_DIRECT_TEMPLATES": ["projects"],
         "PROJECTS_SAVE_AS": "projects/index.html",
         "CATEGORY_TEMPLATE": "project_category",
-        "CATEGORY_URL": 'projects/category/{slug}/',
-        "CATEGORY_SAVE_AS": os.path.join('projects', 'category', '{slug}', 'index.html')
+        "CATEGORY_URL": 'projects/{slug}/',
+        "CATEGORY_SAVE_AS": os.path.join('projects', '{slug}', 'index.html')
     }
 }
 
