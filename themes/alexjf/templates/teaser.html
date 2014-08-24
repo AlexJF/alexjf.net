@@ -35,7 +35,7 @@
 {% endmacro %}
 
 {% macro teaser_list(entity_obj, limit=None, show_date=True) %}
-{{ _teaser_list(entity_obj.entities, entity_obj.entity_type, limit, show_date) }}
+{{ _teaser_list(entity_obj.entities, entity_obj.type, limit, show_date) }}
 {% endmacro %}
 
 {% macro teaser_list_paginated(entities_page, entity_type, limit=None, show_date=True) %}

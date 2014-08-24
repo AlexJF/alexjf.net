@@ -48,6 +48,10 @@
     display: block;
 }
 
+.center-text {
+    text-align: center;
+}
+
 .vertical-align-md {
     @media (min-width: @screen-md-min) {
         .vertical-align;
@@ -438,8 +442,11 @@ footer.site {
     list-style: none;
 
     & > li {
+        .clearfix;
+
         border-bottom: 1px solid @entity-list-separator-color;
-        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
 
     & > li:last-of-type {
@@ -491,6 +498,10 @@ article.full {
 
     .entity-content {
         margin-top: 1rem;
+
+        img {
+            margin: 1rem;
+        }
     }
 }
 

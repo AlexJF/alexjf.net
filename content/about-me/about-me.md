@@ -1,6 +1,6 @@
 Title: About Me
 
-<img class="float-right-or-center-sm block" alt="" src="{static me4.jpg thumb=256x256}">
+<img class="float-right-or-center-sm block" alt="Me!" src="{static me4.jpg thumb=256x256}">
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  

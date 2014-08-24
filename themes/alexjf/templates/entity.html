@@ -47,7 +47,7 @@
         </footer><!-- /.post-info -->
         {% block entity_logo scoped %}
         {% if entity.logo %}
-        <img class="entity-logo" src="{{ entity.logo | thumbnail("200x200") }}" />
+        <img class="entity-logo" alt="{{ entity.title }}" src="{{ entity.logo | thumbnail("200x200") }}" />
         {% endif %}
         {% endblock %}
         {% block entity_content scoped %}

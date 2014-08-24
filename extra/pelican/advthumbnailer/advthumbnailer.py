@@ -59,7 +59,7 @@ class Thumbnailer(object):
     def __init__(self):
         pass
 
-    def _null_resize(self, w, h, image):
+    def _null_resize(self, w, h, image, forced=False):
         return image
 
     def _exact_resize(self, w, h, image, forced=False):
@@ -72,7 +72,7 @@ class Thumbnailer(object):
         retval = ImageOps.fit(image, (w,h), Image.ANTIALIAS)
         return retval
 
-    def _aspect_resize(self, w, h, image):
+    def _aspect_resize(self, w, h, image, forced=False):
         retval = image.copy()
         retval.thumbnail((w, h), Image.ANTIALIAS)
 
