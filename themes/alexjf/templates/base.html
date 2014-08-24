@@ -28,8 +28,8 @@
             <h1 id="site-name"><a class="worded" href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
             <nav id="menu">
                 <ul>
-                    {% for title, url in MENU %}
-                    <li{% if (entity and (url == entity.url or (entity.url.startswith(url) and url != ''))) or (direct and (direct_save_as == url or (direct_save_as.startswith(url) and url != ''))) %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ url }}">{{ title }}</a></li>
+                    {% for menu_title, menu_url in MENU %}
+                    <li{% if url == menu_url or (url and url.startswith(menu_url) and menu_url != '') %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ menu_url }}">{{ menu_title }}</a></li>
                     {% endfor %}
                 </ul>
             </nav><!-- /#menu -->

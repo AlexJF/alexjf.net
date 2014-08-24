@@ -216,7 +216,8 @@ class EntityGenerator(generators.Generator):
             for entity in chain(self.translations, self.entities):
                 entity_subgenerator_write_entity.send(self, content=entity)
                 write(entity.save_as, self.get_template(entity.template),
-                      self.context, entity=entity, entity_type=self.entity_type,
+                      self.context, url=entity.url, entity=entity,
+                      entity_type=self.entity_type,
                       override_output=hasattr(entity, 'override_save_as'))
 
         def generate_period_archives(self, write):
@@ -272,6 +273,7 @@ class EntityGenerator(generators.Generator):
 
                     write(save_as, template, context,
                           key=key,
+                          url=save_as.replace('\\', '/'),
                           dates=archive, entity_type=self.entity_type)
 
             for period in 'year', 'month', 'day':
@@ -294,7 +296,7 @@ class EntityGenerator(generators.Generator):
 
                 write(save_as, self.get_template(template),
                       self.context, entity_type=self.entity_type, paginated=paginated,
-                      direct=True, direct_save_as=save_as,
+                      direct=True, url=save_as.replace('\\', '/'),
                       page_name=os.path.splitext(save_as)[0])
 
         def generate_tags(self, write):
@@ -308,6 +310,7 @@ class EntityGenerator(generators.Generator):
                 write(tag.save_as, tag_template, self.context, tag=tag,
                       entities=entities, paginated={'entities': entities},
                       entity_type=self.entity_type,
+                      url=tag.url,
                       page_name=tag.page_name, all_entities=self.entities)
 
         def generate_categories(self, write):
@@ -322,6 +325,7 @@ class EntityGenerator(generators.Generator):
                       category=cat, entities=entities,
                       paginated={'entities': entities},
                       entity_type=self.entity_type,
+                      url=cat.url,
                       page_name=cat.page_name, all_entities=self.entities)
 
         def generate_authors(self, write):
@@ -336,6 +340,7 @@ class EntityGenerator(generators.Generator):
                       author=aut, entities=entities,
                       paginated={'entities': entities},
                       entity_type=self.entity_type,
+                      url=author.url,
                       page_name=aut.page_name, all_entities=self.entities)
 
         def generate_drafts(self, write):
@@ -344,6 +349,7 @@ class EntityGenerator(generators.Generator):
                 write(draft.save_as, self.get_template(draft.template),
                     self.context, entity=draft,
                     override_output=hasattr(draft, 'override_save_as'),
+                    url=draft.url,
                     all_entities=self.entities)
 
         def generate_pages(self, writer):

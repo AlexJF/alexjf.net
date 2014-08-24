@@ -196,6 +196,14 @@ header.site {
                     a {
                         color: @menu-active-text-color;
                     }
+
+                    &:hover {
+                        background-color: @menu-active-hover-background-color;
+
+                        a {
+                            color: @menu-active-hover-text-color;
+                        }
+                    }
                 }
 
                 &:hover {
@@ -398,6 +406,7 @@ footer.site {
 
     ul {
         list-style: none;
+        padding: 0;
 
         li {
             float: left;

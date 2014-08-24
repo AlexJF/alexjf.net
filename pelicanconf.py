@@ -154,7 +154,7 @@ ENTITY_TYPES = {
         "DIRECT_TEMPLATES": ["blog"],
         "PAGINATED_DIRECT_TEMPLATES": ["blog"],
         "BLOG_SAVE_AS": "blog/index.html",
-        "CATEGORY_TEMPLATE": "category",
+        "CATEGORY_TEMPLATE": "blog_category",
         "CATEGORY_URL": 'blog/category/{slug}/',
         "CATEGORY_SAVE_AS": os.path.join('blog', 'category', '{slug}', 'index.html')
     },
@@ -167,7 +167,7 @@ ENTITY_TYPES = {
         "DIRECT_TEMPLATES": ["projects"],
         "PAGINATED_DIRECT_TEMPLATES": ["projects"],
         "PROJECTS_SAVE_AS": "projects/index.html",
-        "CATEGORY_TEMPLATE": "category",
+        "CATEGORY_TEMPLATE": "project_category",
         "CATEGORY_URL": 'projects/category/{slug}/',
         "CATEGORY_SAVE_AS": os.path.join('projects', 'category', '{slug}', 'index.html')
     }
