@@ -1,6 +1,8 @@
 PY?=python3
 PELICAN?=pelican
 
+VENV=alexjf
+
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/output
@@ -28,28 +30,34 @@ help:
 	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html'
 	@echo '                                                                       '
 
-setup:
+$(VENV): $(VENV)/bin/activate
+$(VENV)/bin/activate: requirements.txt
+    test -d $(VENV) || virtualenv $(VENV)
+    . $@; pip -Ur $<
+    touch $@
+
+setup: $(VENV)
 	pip install -r requirements.txt
 	cd $(BASEDIR)/themes/alexjf/
 	bower install
 
-html:
+html: $(VENV)
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
-regenerate:
+regenerate: $(VENV)
 	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
-serve:
+serve: $(VENV)
 ifdef PORT
 	cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
 else
 	cd $(OUTPUTDIR) && $(PY) -m pelican.server
 endif
 
-devserver:
+devserver: $(VENV)
 ifdef PORT
 	$(BASEDIR)/develop_server.sh restart $(PORT)
 else
@@ -61,7 +69,7 @@ stopserver:
 	kill -9 `cat srv.pid`
 	@echo 'Stopped Pelican and SimpleHTTPServer processes running in background.'
 
-publish: 
+publish: $(VENV)
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 	rsync --delete $(OUTPUTDIR)/ $(PUBLISH_TARGET_DIR)
 
