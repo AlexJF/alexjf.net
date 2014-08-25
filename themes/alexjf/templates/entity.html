@@ -3,17 +3,14 @@
 
 {% block head %}
 {{ super() }}
-{% for keyword in entity.keywords %}
-<meta name="keywords" contents="{{keyword}}" />
-{% endfor %}
+{% if entity.description %}
+<meta name="description" content="{{ entity.description | striptags }}" />
+<meta property="og:description" content="{{ entity.description | striptags }}" />
+{% endif %}
 
-{% for description in entity.description %}
-<meta name="description" contents="{{description}}" />
-{% endfor %}
-
-{% for tag in entity.tags %}
-<meta name="tags" contents="{{tag}}" />
-{% endfor %}
+{% if entity.logo %}
+    <meta property="og:image" content="{{ entity.logo }}"/>
+{% endif %}
 {% endblock %}
 
 {% block title %}{{ entity.title }}{%endblock%}
@@ -93,7 +90,7 @@
     <div id="disqus_thread" class="entity-comments"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'alexjf'; // required: replace example with your forum shortname
+        var disqus_shortname = '{{ DISQUS_SITENAME }}'; // required: replace example with your forum shortname
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {

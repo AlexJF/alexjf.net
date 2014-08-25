@@ -1,7 +1,8 @@
 Title: About Me
+Logo: {static me4.jpg}
 Disable_Comments: True
+Description: Information about Alexandre Jorge Fonseca
 
-<img class="float-right-or-center-sm block" alt="Me!" src="{static me4.jpg thumb=256x256}">
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  

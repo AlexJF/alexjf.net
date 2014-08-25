@@ -1,4 +1,9 @@
 {% extends "entity.html" %}
+{% block head %}
+{{ super() }}
+<meta property="og:type" content="website"/>
+{% endblock %}
+
 {% block breadcrumbs %}
 <li>{{ entity.title }}</li>
 {% endblock %}

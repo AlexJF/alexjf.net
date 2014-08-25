@@ -1,5 +1,10 @@
 {% extends "entity.html" %}
 
+{% block head %}
+{{ super() }}
+<meta property="og:type" content="article"/>
+{% endblock %}
+
 {% block breadcrumbs %}
 <li><a href="{{ SITEURL }}/blog/">Blog</a></li>
 <li><a href="{{ SITEURL }}/{{ entity.category.url }}">{{ entity.category.name | title }}</a></li>

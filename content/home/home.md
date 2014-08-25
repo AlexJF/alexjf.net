@@ -2,6 +2,7 @@ Title: Home
 Template: home
 URL:
 save_as: index.html
+Description: Personal website of Alexandre Jorge Fonseca
 
 Welcome to the newest version of my website!
 

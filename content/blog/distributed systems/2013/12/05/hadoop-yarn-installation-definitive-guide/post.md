@@ -2,6 +2,8 @@ Title: Hadoop YARN Installation: The definitive guide
 Logo: {static images/elephant_sq.png}
 Modified: 2014-06-27
 Tags: Hadoop, HDFS, YARN
+Description: Installation guide for Hadoop 2.x.x based on YARN with HDFS, YARN 
+             and MapReduce configurations for single-node and cluster environments.
 Summary: This article guides you in the installation of the new generation
          Hadoop based on YARN. It is based on the most recent version of Hadoop
          at the time of this writing (2.2.0) and includes HDFS, YARN and

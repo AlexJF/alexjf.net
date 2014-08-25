@@ -128,6 +128,7 @@ class EntityGenerator(generators.Generator):
             self.authors = defaultdict(list)
             self.drafts = [] # only drafts in default language
             self.drafts_translations = []
+            self.sort_attrs = []
             super(EntityGenerator.EntitySubGenerator, self).__init__(*args, cache_name=entity_type, **kwargs)
             entity_subgenerator_init.send(self)
 
@@ -148,7 +149,7 @@ class EntityGenerator(generators.Generator):
                 all_entities = list(self.entities)
                 for content in self.entities:
                     all_entities.extend(content.translations)
-                all_entities.sort(key=attrgetter('date'), reverse=True)
+                all_entities.sort(key=attrgetter(*self.sort_attrs), reverse=True)
 
                 if self.settings.get('FEED_ALL_ATOM'):
                     writer.write_feed(all_entities, self.context,
@@ -415,16 +416,14 @@ class EntityGenerator(generators.Generator):
             self.drafts, self.drafts_translations = \
                 process_translations(all_drafts)
 
-            # sort the entities by date
-            custom_sort_attr = self.settings.get("SORT_ATTRIBUTES", None)
+            custom_sort_attr = self.settings.get("SORT_ATTRIBUTES", [])
 
-            sort_attrs = ["date"]
+            self.sort_attrs = ["date"]
 
             if custom_sort_attr:
-                sort_attrs = [x.strip() for x in custom_sort_attr.split(',')] \
-                    + sort_attrs
+                self.sort_attrs = custom_sort_attr + self.sort_attrs
 
-            self.entities.sort(key=attrgetter(*sort_attrs), reverse=True)
+            self.entities.sort(key=attrgetter(*self.sort_attrs), reverse=True)
 
             entity_subgenerator_pretaxonomy.send(self)
 

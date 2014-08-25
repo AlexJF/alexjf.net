@@ -246,7 +246,7 @@ header.site {
 }
 
 #breadcrumbs {
-    .make-md-column(12);
+    .make-md-column(6);
     .preserve-3d;
 
     border-top: 1px dashed @site-border;
@@ -283,6 +283,32 @@ header.site {
                 content: "»";
                 margin-right: 0.5rem;
             }
+        }
+    }
+}
+
+#search-input-wrapper {
+    .make-md-column(6);
+    .preserve-3d;
+
+    border-top: 1px dashed @site-border;
+    border-bottom: 1px dashed @site-border;
+
+    @media (min-width: @screen-md-min) {
+        height: 4rem;
+    }
+
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+
+    form {
+        .vertical-align-md;
+
+        text-align: right;
+
+        input, button {
+            vertical-align: middle;
+            padding: 0.2rem 0.5rem;
         }
     }
 }
@@ -617,4 +643,9 @@ div.toc {
             }
         }
     }
+}
+
+// # Google search results
+.gsc-control-cse * {
+    box-sizing: content-box;
 }

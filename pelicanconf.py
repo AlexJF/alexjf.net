@@ -128,9 +128,20 @@ def parse_gallery(string):
     return items
 
 
+def parse_description(string):
+    if string is None or isinstance(string, six.string_types):
+        return string
+
+    if isinstance(string, collections.Iterable):
+        string = " ".join(string)
+
+    return string
+
+
 METADATA_PARSERS = {
     "Attachments": parse_attachments,
     "Gallery": parse_gallery,
+    "Description": parse_description,
 }
 
 PAGINATION_PATTERNS = (
@@ -144,7 +155,9 @@ ENTITY_TYPES = {
         "EXCLUDES": ["blog", "projects"],
         "PAGE_URL": "{slug}",
         "PAGE_SAVE_AS": "{slug}/index.html",
-        "PATH_METADATA": r"(?P<slug>[^/]+)/.*"
+        "PATH_METADATA": r"(?P<slug>[^/]+)/.*",
+        "DIRECT_TEMPLATES": ["search"],
+        "SEARCH_SAVE_AS": "search/index.html"
     },
     "Article": {
         "PATHS": ["blog"],
@@ -155,12 +168,14 @@ ENTITY_TYPES = {
         "PAGINATED_DIRECT_TEMPLATES": ["blog"],
         "BLOG_SAVE_AS": "blog/index.html",
         "CATEGORY_TEMPLATE": "blog_category",
-        "CATEGORY_URL": 'blog/{slug}/',
-        "CATEGORY_SAVE_AS": os.path.join('blog', '{slug}', 'index.html')
+        "CATEGORY_URL": "blog/{slug}/",
+        "CATEGORY_SAVE_AS": os.path.join("blog", "{slug}", "index.html"),
+        "FEED_ATOM": os.path.join("blog", "feeds", "atom.xml"),
+        "CATEGORY_FEED_ATOM": os.path.join("blog", "feeds", "%s.atom.xml")
     },
     "Project": {
         "PATHS": ["projects"],
-        "SORT_ATTRIBUTES": "project_start",
+        "SORT_ATTRIBUTES": ["project_start"],
         "PROJECT_URL": "projects/{category}/{slug}/",
         "PROJECT_SAVE_AS": "projects/{category}/{slug}/index.html",
         "PATH_METADATA": r".*/(?P<category>[^/]+)/(?P<slug>[^/]+)/.*",
@@ -169,7 +184,9 @@ ENTITY_TYPES = {
         "PROJECTS_SAVE_AS": "projects/index.html",
         "CATEGORY_TEMPLATE": "project_category",
         "CATEGORY_URL": 'projects/{slug}/',
-        "CATEGORY_SAVE_AS": os.path.join('projects', '{slug}', 'index.html')
+        "CATEGORY_SAVE_AS": os.path.join('projects', '{slug}', 'index.html'),
+        "FEED_ATOM": os.path.join("projects", "feeds", "atom.xml"),
+        "CATEGORY_FEED_ATOM": os.path.join("projects", "feeds", "%s.atom.xml")
     }
 }
 

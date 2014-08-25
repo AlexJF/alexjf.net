@@ -1,4 +1,8 @@
 {% extends "projects.html" %}
+{% block head %}
+{{ super() }}
+<link rel="alternate" type="application/atom+xml" title="Projects - {{ category.name | title }}" href="{{ SITEURL }}/projects/feeds/{{ category.slug }}.atom.xml" />
+{% endblock %}
 {% block content_title %}
 <h2 class="page-title">Projects in the {{ category.name | title }} category</h2>
 {% endblock %}
