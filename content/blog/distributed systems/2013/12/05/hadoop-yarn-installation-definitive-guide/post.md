@@ -13,7 +13,7 @@ Summary: This article guides you in the installation of the new generation
 
 [TOC]
 
-<div class='center ad' style='margin: 15px'>
+<div class='center-text ad' style='margin: 15px'>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- AlexJF - Hadoop Tutorial -->
 <ins class="adsbygoogle"
@@ -494,8 +494,9 @@ hdfs dfs -ls /
 ### Web Interface
 To monitor your cluster and your jobs, you can also check the web interfaces of the Hadoop components instead of using the command line for that. This web interface is available at the endpoint of your ResourceManager node at the webapp port (by default 8088). In a single-node setup you could access it with [localhost:8088](localhost:8088). In the cluster setup with `resourcemanager.alexjf.net:8088`. You'll be greeted with a web page that looks like the following:
 
-<div class="center">
-<a href="https://www.alexjf.net/sites/default/files/article/39/images/snapshot1.png" title="Hadoop Web Interface" class="colorbox colorbox-insert-image" rel="gallery-all"><img typeof="foaf:Image" src="https://www.alexjf.net/sites/default/files/styles/medium/public/article/39/images/snapshot1.png?itok=iahQPb_w" alt="" title="Hadoop Web Interface" class="blogpost-image image-medium" /></a>
+<div class="center-text">
+<a href="{static images/snapshot1.png}" title="Hadoop Web Interface" class="image-box">
+<img src="{static images/snapshot1.png thumb=220x165}" alt="Hadoop Web Interface" class="blogpost-image image-medium" /></a>
 </div>
 
 ### Log Aggregation {#log-aggregation}
@@ -629,3 +630,15 @@ If you found this useful and saved you time, consider buying me a beer :)
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
+
+<div class='center-text ad' style='margin: 15px'>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- AlexJF - Hadoop Tutorial -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:728px;height:90px"
+data-ad-client="ca-pub-7030271622919244"
+data-ad-slot="3415995911"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
