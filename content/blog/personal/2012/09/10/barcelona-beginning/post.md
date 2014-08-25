@@ -27,12 +27,6 @@ me otherwise. Fortunately, I didn't break it, just bruised a little of the
 scalp. Awesome way to start my adventure in Spain!! Needless to say my mom was
 worried sick when she skyped me and my shirt was full of blood :D
 
-<p class="float-right-sm center-text">
-<a class="image-box" href="{static images/HPIM1662.JPG}" title="My Room">
-<img src="{static images/HPIM1662.JPG thumb=220x165}" alt="My Room">
-</a>
-</p>
-
 On the first weekend I looked at some room ads on
 [www.idealista.com](www.idealista.com) in the Barcelona area, chose 5 and
 arranged visits for the next Monday from 17:00 to 19:30. Up until the last
@@ -44,6 +38,12 @@ and let me use the kitchen whenever I want and leave/enter the house at my
 pleasure so I'm free to join any of the several parties that Barcelona offers
 on a daily basis. I also have a half-bathroom of my own which is a definite
 plus!
+
+<p class="center-text">
+<a class="image-box" href="{static images/HPIM1662.JPG}" title="My Room">
+<img src="{static images/HPIM1662.JPG thumb=220x165}" alt="My Room">
+</a>
+</p>
 
 I only moved to my new room on the 30th September so until then I continued my
 mini-vacations with my friend. There was hardly a day I went to bed earlier

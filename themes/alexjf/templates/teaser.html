@@ -1,6 +1,6 @@
 {% macro teaser(entity, show_date) %}
 <article class="teaser {{ entity.type | lower }}-teaser">
-    <img class="entity-logo" src="{{ (entity.logo if entity.logo else SITEURL + "/theme/images/noimage.png") | thumbnail("100x100") }}" />
+    <img alt="{{ entity.title }}" class="entity-logo" src="{{ (entity.logo if entity.logo else SITEURL + "/theme/images/noimage.png") | thumbnail("100x100") }}" />
     <div class="entity-body">
         <header> <h2 class="entity-title"><a href="{{ SITEURL }}/{{ entity.url }}" rel="bookmark" title="Permalink to {{ entity.title|striptags }}">{{ entity.title }}</a></h2> </header>
         <footer class="entity-info">

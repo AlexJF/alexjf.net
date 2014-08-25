@@ -1,5 +1,7 @@
 Title: Life in Stockholm
 Logo: {static "images/2013-10-24 15.34.08.jpg"}
+Attachments:
+    {static attachments/essay.pdf}||A Game of Science (Philosophy Essay)
 
 I arrived in Stockholm on the 15th of August and I must say I've enjoyed
 immensely these 3 months I've already spent here. The EMDC master programme I'm
