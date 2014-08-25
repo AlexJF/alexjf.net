@@ -8,3 +8,4 @@ output
 *.pid
 bower_components
 .ropeproject
+.alexjf_env

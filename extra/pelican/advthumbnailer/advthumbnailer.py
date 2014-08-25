@@ -18,7 +18,6 @@ from jinja2.ext import Extension
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 try:
     from PIL import Image, ImageOps

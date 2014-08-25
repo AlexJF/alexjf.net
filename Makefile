@@ -1,7 +1,7 @@
 PY?=python3
 PELICAN?=pelican
 
-VENV=alexjf
+VENV=.alexjf_env
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
@@ -9,6 +9,11 @@ OUTPUTDIR=$(BASEDIR)/output
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 PUBLISH_TARGET_DIR=/home/alex/www/public_html/alexjf
+
+SSH_HOST=$(SOVEREIGN_HOST)
+SSH_PORT=$(SOVEREIGN_PORT)
+SSH_USER=$(SOVEREIGN_USER)
+SSH_TARGET_DIR=~/www/public_html/alexjf_new
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -23,6 +28,7 @@ help:
 	@echo '   make clean                       remove the generated files         '
 	@echo '   make regenerate                  regenerate files upon modification '
 	@echo '   make publish                     generate using production settings '
+	@echo '   make rsyn_upload                 upload the web site via rsync      '
 	@echo '   make serve [PORT=8000]           serve site at http://localhost:8000'
 	@echo '   make devserver [PORT=8000]       start/restart develop_server.sh    '
 	@echo '   make stopserver                  stop local server                  '
@@ -30,16 +36,20 @@ help:
 	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html'
 	@echo '                                                                       '
 
+debug_ssh_vars:
+	echo $(SSH_HOST)
+	echo $(SSH_PORT)
+	echo $(SSH_USER)
+
 $(VENV): $(VENV)/bin/activate
 $(VENV)/bin/activate: requirements.txt
-    test -d $(VENV) || virtualenv $(VENV)
-    . $@; pip -Ur $<
-    touch $@
+	test -d $(VENV) || virtualenv $(VENV)
+	. $@; pip install -Ur $<
+	touch $@
 
 setup: $(VENV)
 	pip install -r requirements.txt
-	cd $(BASEDIR)/themes/alexjf/
-	bower install
+	cd $(BASEDIR)/themes/alexjf/ ; bower install
 
 html: $(VENV)
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
@@ -71,6 +81,8 @@ stopserver:
 
 publish: $(VENV)
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
-	rsync --delete $(OUTPUTDIR)/ $(PUBLISH_TARGET_DIR)
+
+rsync_upload: publish
+	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --delete $(OUTPUTDIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR) --cvs-exclude
 
 .PHONY: html help clean regenerate serve devserver publish 
