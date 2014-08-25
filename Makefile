@@ -52,26 +52,26 @@ setup: $(VENV)
 	cd $(BASEDIR)/themes/alexjf/ ; bower install
 
 html: $(VENV)
-	$(VENV_ACTIVATE) ; $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	source $(VENV_ACTIVATE) ; $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
 regenerate: $(VENV)
-	$(VENV_ACTIVATE) ; $(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	source $(VENV_ACTIVATE) ; $(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 serve: $(VENV)
 ifdef PORT
-	$(VENV_ACTIVATE) ; cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
+	source $(VENV_ACTIVATE) ; cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
 else
-	$(VENV_ACTIVATE) ; cd $(OUTPUTDIR) && $(PY) -m pelican.server
+	source $(VENV_ACTIVATE) ; cd $(OUTPUTDIR) && $(PY) -m pelican.server
 endif
 
 devserver: $(VENV)
 ifdef PORT
-	$(VENV_ACTIVATE) ; $(BASEDIR)/develop_server.sh restart $(PORT)
+	source $(VENV_ACTIVATE) ; $(BASEDIR)/develop_server.sh restart $(PORT)
 else
-	$(VENV_ACTIVATE) ; $(BASEDIR)/develop_server.sh restart
+	source $(VENV_ACTIVATE) ; $(BASEDIR)/develop_server.sh restart
 endif
 
 stopserver:
@@ -80,7 +80,7 @@ stopserver:
 	@echo 'Stopped Pelican and SimpleHTTPServer processes running in background.'
 
 publish: $(VENV)
-	$(VENV_ACTIVATE) ; $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	source $(VENV_ACTIVATE) ; $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 
 rsync_upload: publish
 	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --delete $(OUTPUTDIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR) --cvs-exclude

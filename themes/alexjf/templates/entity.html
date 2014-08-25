@@ -75,6 +75,7 @@
         {% endif %}
         {% endblock %}
     </div>
+    {% if not entity.disable_share %}
     <div class="addinto_sharebox addinto_sharebox_default entity-share">
         <a class="addinto_button_email"></a>
         <a class="addinto_button_print"></a>
@@ -86,6 +87,7 @@
         <a href="http://www.addinto.com/ai?type=bkmk" class="addinto_button_more_dd"></a>
     </div>
     <script type="text/javascript">var ai2_bkmks = "Email,Bookmark,Facebook,Google Plus,LinkedIn,Twitter";</script><script type="text/javascript" src="http://static.addinto.com/ai/ai2_bkmk.js"></script>
+    {% endif %}
     {% if not entity.disable_comments %}
     <div id="disqus_thread" class="entity-comments"></div>
     <script type="text/javascript">

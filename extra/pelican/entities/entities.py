@@ -409,7 +409,7 @@ class EntityGenerator(generators.Generator):
                 elif entity.status.lower() == "draft":
                     all_drafts.append(entity)
                 else:
-                    logger.error("Unknown status '%s' for file %s, skipping it.",
+                    logger.warning("Unknown status '%s' for file %s, skipping it.",
                                    entity.status, f)
 
             self.entities, self.translations = process_translations(all_entities)
