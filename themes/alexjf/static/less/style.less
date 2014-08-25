@@ -250,7 +250,10 @@ header.site {
     .preserve-3d;
 
     border-top: 1px dashed @site-border;
-    border-bottom: 1px dashed @site-border;
+
+    @media (min-width: @screen-md-min) {
+        border-bottom: 1px dashed @site-border;
+    }
 
     @media (min-width: @screen-md-min) {
         height: 4rem;
@@ -291,11 +294,18 @@ header.site {
     .make-md-column(6);
     .preserve-3d;
 
-    border-top: 1px dashed @site-border;
+    @media (min-width: @screen-md-min) {
+        border-top: 1px dashed @site-border;
+    }
+
     border-bottom: 1px dashed @site-border;
 
     @media (min-width: @screen-md-min) {
         height: 4rem;
+    }
+
+    @media (max-width: @screen-md-min) {
+        padding-bottom: 1rem;
     }
 
     padding-left: 2.5rem;
@@ -304,7 +314,9 @@ header.site {
     form {
         .vertical-align-md;
 
-        text-align: right;
+        @media (min-width: @screen-md-min) {
+            text-align: right;
+        }
 
         input, button {
             vertical-align: middle;
@@ -472,6 +484,10 @@ footer.site {
 
 .entity-list {
     list-style: none;
+
+    @media (max-width: @screen-sm-min) {
+        padding-left: 0;
+    }
 
     & > li {
         .clearfix;

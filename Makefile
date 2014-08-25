@@ -2,6 +2,7 @@ PY?=python3
 PELICAN?=pelican
 
 VENV=.alexjf_env
+VENV_ACTIVATE=$(VENV)/bin/activate
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
@@ -42,36 +43,35 @@ debug_ssh_vars:
 	echo $(SSH_USER)
 
 $(VENV): $(VENV)/bin/activate
-$(VENV)/bin/activate: requirements.txt
+$(VENV_ACTIVATE): requirements.txt
 	test -d $(VENV) || virtualenv $(VENV)
 	. $@; pip install -Ur $<
 	touch $@
 
 setup: $(VENV)
-	pip install -r requirements.txt
 	cd $(BASEDIR)/themes/alexjf/ ; bower install
 
 html: $(VENV)
-	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	$(VENV_ACTIVATE) ; $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
 regenerate: $(VENV)
-	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	$(VENV_ACTIVATE) ; $(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 serve: $(VENV)
 ifdef PORT
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
+	$(VENV_ACTIVATE) ; cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
 else
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server
+	$(VENV_ACTIVATE) ; cd $(OUTPUTDIR) && $(PY) -m pelican.server
 endif
 
 devserver: $(VENV)
 ifdef PORT
-	$(BASEDIR)/develop_server.sh restart $(PORT)
+	$(VENV_ACTIVATE) ; $(BASEDIR)/develop_server.sh restart $(PORT)
 else
-	$(BASEDIR)/develop_server.sh restart
+	$(VENV_ACTIVATE) ; $(BASEDIR)/develop_server.sh restart
 endif
 
 stopserver:
@@ -80,7 +80,7 @@ stopserver:
 	@echo 'Stopped Pelican and SimpleHTTPServer processes running in background.'
 
 publish: $(VENV)
-	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	$(VENV_ACTIVATE) ; $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 
 rsync_upload: publish
 	rsync -e "ssh -p $(SSH_PORT)" -P -rvzc --delete $(OUTPUTDIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR) --cvs-exclude
