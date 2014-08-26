@@ -19,7 +19,7 @@ DEBUG = True
 THEME = "themes/alexjf"
 PLUGIN_PATHS = ["extra/pelican", "extra/pelican-plugins"]
 PLUGINS = ["entities", "assets", "summary", "autostatic", "advthumbnailer",
-           "metadataparsing", "minify"]
+           "metadataparsing", "minify", "optimize_images"]
 
 PATH = "content"
 
