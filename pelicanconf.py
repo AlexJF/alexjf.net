@@ -17,9 +17,9 @@ SITEURL = ""
 DEBUG = True
 
 THEME = "themes/alexjf"
-PLUGIN_PATHS = ["extra/pelican", "extra/pelican-plugins"]
+PLUGIN_PATHS = ["extra/pelican-plugins"]
 PLUGINS = ["entities", "assets", "summary", "autostatic", "advthumbnailer",
-           "metadataparsing", "minify", "optimize_images"]
+           "metadataparsing"]
 
 PATH = "content"
 
@@ -199,5 +199,5 @@ MD_EXTENSIONS = ["codehilite(css_class=highlight)",
                  "extra",
                  "toc",
                  "textalign",
-                 "extra.markdown.mdx_collapse"
+                 "collapse"
                 ]

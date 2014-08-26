@@ -10,6 +10,8 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
+PLUGINS += ["minify", "optimize_images"]
+
 SITEURL = "http://www.alexjf.net"
 RELATIVE_URLS = False
 

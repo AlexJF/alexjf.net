@@ -20,6 +20,11 @@ itsdangerous==0.24
 logilab-common==0.62.1
 mdx-textalign==1.0
 pelican==3.4.0
+pelican-entities==0.1.0
+pelican-autostatic==0.1.0
+pelican-advthumbnailer==0.1.0
+pelican-metadataparsing==0.1.0
+mdx_collapse==0.1.0
 -e git://github.com/AlexJF/pelican-minify.git@e985e2043e186505f8096e1be17e51979da78690#egg=pelican_minify-master
 pylint==1.3.0
 python-dateutil==2.2
