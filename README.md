@@ -4,7 +4,14 @@ Powered by Pelican
 
 ## Setup
 
-* Install `lessc`, `uglifyjs`, `python`, `virtualenv`, `bower` at the system level
+* Install system-level dependencies:
+    * `lessc`
+    * `uglifyjs`
+    * `python`
+    * `virtualenv`
+    * `bower` 
+    * `optipng`
+    * `jpegtran`
 * Run `make setup`
 
 ## Custom Pelican Plugins
