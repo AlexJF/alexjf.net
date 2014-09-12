@@ -610,7 +610,6 @@ Hope you've enjoyed reading this :)
 
 **Changelog:**
 
-* 2014-06-27 - Added S3 and EC2 deployment sections. Updated Fabric scripts. 
 * 2014-01-07 - Fixed typos and duplicate command in resourcemanager/nodemanager startup with Hadoop scripts.
 * 2014-01-27
     * Fixed wrong if condition in example Python streaming program.
@@ -619,6 +618,7 @@ Hope you've enjoyed reading this :)
     * Updated the Fabric scripts for server-side Python 2.6 compatibility, more adaptibility and bugfixing.
 * 2014-03-17
     * Added a section explaining how to add hadoop binaries to the execution path.
+* 2014-06-27 - Added S3 and EC2 deployment sections. Updated Fabric scripts. 
 
 **Donate:**
 
