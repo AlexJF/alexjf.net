@@ -41,9 +41,9 @@ Planned features:
 * Browsing transactions by category on all money nodes.
 * Import/Export to various formats.
 
-You can follow development on my Github repository: https://github.com/AlexJF/TrackMyMoney.
+You can follow development on my Github repository: [https://github.com/AlexJF/TrackMyMoney](https://github.com/AlexJF/TrackMyMoney).
 
-Summarized changelog: https://github.com/AlexJF/TrackMyMoney/blob/master/CHANGES
+Summarized changelog: [https://github.com/AlexJF/TrackMyMoney/blob/master/CHANGES](https://github.com/AlexJF/TrackMyMoney/blob/master/CHANGES).
 
 If you find this application useful, consider donating to help its development!
 

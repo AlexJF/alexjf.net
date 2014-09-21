@@ -6,14 +6,14 @@ Description: Information about Alexandre Jorge Fonseca
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  
-**Residence:** Barcelona, Spain  
-**Other places I've lived in:** Stockholm, Sweden  
+**Residence:** Oeiras, Portugal  
+**Other places I've lived in:** Barcelona, Spain | Stockholm, Sweden  
 
 **Work:**
 
-* [Telefónica Digital](http://www.telefonica.com/en/digital/html/home/) - January 2014 to Present  
-  Master Thesis Intern
-* [OpenRatio](http://www.openratio.com) - October 2013 to Present  
+* [Telefónica Digital](http://www.telefonica.com/en/digital/html/home/) - January 2014 to July 2014  
+  Master Thesis Intern ([thesis](/projects/thesis/optimizing-synchronous-online-computation-graphs))  
+* [OpenRatio](http://www.openratio.com) - October 2013 to June 2014  
   Software Engineer Intern (-2013) / System Architect (2014-)
 * [Universitat Politècnica de Catalunya](http://upc.edu) - June 2013 to September 2013  
   Research Trainee in the [CONFINE](http://confine-project.eu)
@@ -28,7 +28,7 @@ Description: Information about Alexandre Jorge Fonseca
 **Education:**
 
 * Universitat Politècnica de Catalunya & KTH Royal Institute of Technology  
-  [MSc in Distributed Computing](http://www.kth.se/en/studies/programmes/master/em/emdc) (2012-2014)
+  [MSc in Distributed Computing](http://www.kth.se/en/studies/programmes/master/em/emdc) (2012-2014) - 9.9/10 (UPC) & 4.75/5 (KTH) & 9.5/10 (UPC thesis)  
 * Instituto Superior Técnico  
   [BSc in Information Systems and Computer Engineering](https://fenix.ist.utl.pt/cursos/leic-t/descricao?locale=en_EN) (2009 - 2012) - 19.42/20
 * Colégio Marista de Carcavelos <br> Secondary School (until 2009) - 19.7/20
@@ -69,8 +69,10 @@ Description: Information about Alexandre Jorge Fonseca
 **Worth of Mention:**
 
 * 10 "Matrículas de Honor" (first class honours) during the first master year at Universitat Politècnica de Catalunya
-* Merit Scholarship (Instituto Superior Técnico) - overall best grades of the Information Systems and Computer Engineering course during the second year (2010/2011 - 19.55 out of 20)
-* Merit Scholarship (Instituto Superior Técnico) - overall best grades of the Information Systems and Computer Engineering course during the first year (2009/2010 - 19.6 out of 20)
+* Merit Scholarship (Instituto Superior Técnico) - overall best grades of the Information Systems and Computer Engineering course:
+	* Third year (2011/2012 - 19.1 out of 20)
+	* Second year (2010/2011 - 19.55 out of 20)
+	* First year (2009/2010 - 19.6 out of 20)
 * Scientific Merit Award (Colégio Marista de Carcavelos) - overall best grades of the 9th and 10th year (2005/2006 &amp; 2006/2007)
 * Cambridge Exams:
     * IELTS - Score 8.5/9 (July 2011)
