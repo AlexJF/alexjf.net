@@ -17,6 +17,8 @@ large graphs. This is done in the context of a system being developed at
 Telefónica called Realtime Giraph that enhances Giraph by providing a 
 realtime incremental computation mode.
 
+Realtime Giraph is part of the [grafos.ml project](http://grafos.ml).
+
 <!-- PELICAN_END_SUMMARY -->
 
 The 3 mechanisms implemented to achieve the objective were:

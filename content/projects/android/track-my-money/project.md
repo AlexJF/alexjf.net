@@ -2,7 +2,7 @@ Title: Track My Money
 Logo: {static images/logo.png}
 Project_Start: 2012/07
 Project_Authors: Alexandre Fonseca
-Project_Version: 1.1.2
+Project_Version: 1.2.0 (27 Sep 2014)
 Project_Status: In development
 Gallery:
     {static "images/2013-03-04 20.38.22.png"}||User selection
