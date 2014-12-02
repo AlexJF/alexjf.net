@@ -24,6 +24,11 @@ Cool use cases:
   track sample from your music library.
 * Limit the size of your offline-saved collection by offline-saving a random
   limited-size sample from your music library.
+* Shuffle the order of the tracks in a playlist in a truly random way (not
+  according to Spotify's sometimes weird randomness that plays the same track
+  several times).
+* Join several playlists together without duplicates or remove duplicates from
+  a single playlist.
 
 [Shufflify website](http://shufflify.alexjf.net)  
 [Github](https://github.com/AlexJF/shufflify)
