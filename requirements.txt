@@ -19,9 +19,9 @@ htmlmin==0.1.5
 itsdangerous==0.24
 logilab-common==0.62.1
 mdx-textalign==1.0
-pelican==3.4.0
+-e git://github.com/getpelican/pelican.git@3.4.0#egg=pelican
 pelican-entities==0.1.0
-pelican-autostatic==0.2.1
+pelican-autostatic==0.2.2
 pelican-advthumbnailer==0.3.0
 pelican-metadataparsing==0.1.0
 mdx_collapse==0.1.0
