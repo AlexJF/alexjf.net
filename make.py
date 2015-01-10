@@ -8,7 +8,7 @@ from subprocess import call
 from shutil import rmtree
 
 
-SSH_TARGET_DIR = "~/www/public_html/alexjf_new_testwin"
+SSH_TARGET_DIR = "/home/alex/www/public_html/alexjf_new_testwin"
 
 
 def main():
@@ -96,7 +96,7 @@ def rsync_upload(ctx):
 
 def winscp_upload(ctx):
     """ Upload using winscp (Windows-only) """
-    shell("winscp {ssh_user}@{ssh_host} /defaults /keepuptodate // {output} {ssh_target_dir}", ctx)
+    shell("winscp /command \"option batch abort\" \"option confirm off\" \"open sftp://{ssh_user}@{ssh_host}:{ssh_port}\" \"synchronize remote -delete -mirror \"\"{output}\"\" \"\"{ssh_target_dir}\"\"", ctx)
 
 
 def clean(ctx):

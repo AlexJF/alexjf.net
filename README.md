@@ -12,7 +12,7 @@ Powered by Pelican
     * `bower` 
     * `optipng`
     * `jpegtran`
-* Run `make setup`
+* Run `.\make[.py/.ps1] setup`
 
 ## Custom Pelican Plugins
 
