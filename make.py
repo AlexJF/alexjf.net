@@ -96,7 +96,7 @@ def rsync_upload(ctx):
 
 def winscp_upload(ctx):
     """ Upload using winscp (Windows-only) """
-    shell("winscp /command \"option batch abort\" \"option confirm off\" \"open sftp://{ssh_user}@{ssh_host}:{ssh_port}\" \"synchronize remote -delete -mirror \"\"{output}\"\" \"\"{ssh_target_dir}\"\"", ctx)
+    shell("winscp /command \"option batch abort\" \"option confirm off\" \"open sftp://{ssh_user}@{ssh_host}:{ssh_port}\" \"synchronize remote -delete \"\"{output}\"\" \"\"{ssh_target_dir}\"\"\" \"exit\"", ctx)
 
 
 def clean(ctx):
