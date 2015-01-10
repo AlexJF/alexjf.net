@@ -15,8 +15,8 @@
   ],
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "Lettering.js": "~0.6.1",
-    "pygments": "~1.6.1",
-    "magnific-popup": "~0.9.9"
+    "Lettering.js": "~0.7.0",
+    "pygments": "~2.0.1",
+    "magnific-popup": "~1.0.0"
   }
 }

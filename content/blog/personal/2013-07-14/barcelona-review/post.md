@@ -105,8 +105,8 @@ one of the greenest areas in the city.
 <a class="image-box" href="{static images/00S6mG-105125584.jpg}" title="View from montjuic">
 <img src="{static images/00S6mG-105125584.jpg thumb=220x165}" alt="View from montjuic">
 </a>
-<a class="image-box" href="{static images/Barcelona,_entrada_del_castell_de_Montjuïc.jpg}" title="Montjuic castle entrance">
-<img src="{static images/Barcelona,_entrada_del_castell_de_Montjuïc.jpg thumb=220x165}" alt="Montjuic castle entrance">
+<a class="image-box" href="{static images/Barcelona,_entrada_del_castell_de_Montjuic.jpg}" title="Montjuic castle entrance">
+<img src="{static images/Barcelona,_entrada_del_castell_de_Montjuic.jpg thumb=220x165}" alt="Montjuic castle entrance">
 </a>
 </p>
 

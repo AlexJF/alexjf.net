@@ -22,10 +22,10 @@ mdx-textalign==1.0
 -e git://github.com/getpelican/pelican.git@3.4.0#egg=pelican
 pelican-entities==0.1.0
 pelican-autostatic==0.2.2
-pelican-advthumbnailer==0.3.0
+pelican-advthumbnailer==0.4.0
 pelican-metadataparsing==0.1.0
 mdx_collapse==0.1.0
-pelican-minify==0.5
+pelican-minify==0.7
 pylint==1.3.0
 python-dateutil==2.2
 pytz==2014.4

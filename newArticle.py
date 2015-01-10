@@ -8,7 +8,7 @@ import subprocess
 from pelican.utils import slugify
 
 DEFAULT_CATEGORY = "misc"
-DATE_FORMAT = "%Y/%m/%d"
+DATE_FORMAT = "%Y-%m-%d"
 BASE_ARTICLE_DIR = os.path.join("content", "blog")
 
 ARTICLE_TEMPLATE = """\
@@ -44,7 +44,7 @@ def get_data_from_user():
 
 
 def create_article_file(title, slug, category, creation_date):
-    date_path = creation_date.strftime(DATE_FORMAT).replace('/', os.sep)
+    date_path = creation_date.strftime(DATE_FORMAT)
 
     article_dir = os.path.join(BASE_ARTICLE_DIR, category.lower(), date_path, slug)
     os.makedirs(article_dir, exist_ok=True)

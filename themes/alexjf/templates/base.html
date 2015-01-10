@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/favicon.ico">
 
     {% assets filters="less,cssmin", output="css/style.min.css", "less/style.less", "bower_components/pygments/css/colorful.css", "bower_components/magnific-popup/dist/magnific-popup.css" %}
-    <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL }}">
+    <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ ASSET_URL.replace('%5C', '/') }}">
     {% endassets %}
 
     <meta property="og:title" content="{{ self.title() }}" />
@@ -82,7 +82,7 @@
        "bower_components/bootstrap/dist/js/bootstrap.min.js", 
        "bower_components/Lettering.js/jquery.lettering.js",
        "bower_components/magnific-popup/dist/jquery.magnific-popup.min.js" %}
-    <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL }}"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/{{ ASSET_URL.replace('%5C', '/') }}"></script>
     {% endassets %}
     <script>
         $.urlParam = function(name){
