@@ -21,6 +21,7 @@ def main():
         "clean": clean,
         "rsync_upload": rsync_upload,
         "winscp_upload": winscp_upload,
+        "unison_upload": unison_upload
     }
 
     epilog = "Tasks:\n"
@@ -91,12 +92,17 @@ def serve(ctx):
 
 def rsync_upload(ctx):
     """ Upload using rsync (Unix-only) """
-    shell("rsync -e 'ssh -p {ssh_port}' -P -rvzc --delete {output}/ {ssh_user}@{ssh_host}:{ssh-target-dir} --cvs-exclude", ctx)
+    shell("rsync -e 'ssh -p {ssh_port}' -P -rvzc --delete {output}/ {ssh_user}@{ssh_host}:{ssh_target_dir} --cvs-exclude", ctx)
 
 
 def winscp_upload(ctx):
     """ Upload using winscp (Windows-only) """
     shell("winscp /command \"option batch abort\" \"option confirm off\" \"open sftp://{ssh_user}@{ssh_host}:{ssh_port}\" \"synchronize remote -delete -criteria=size \"\"{output}\"\" \"\"{ssh_target_dir}\"\"\" \"exit\"", ctx)
+
+
+def unison_upload(ctx):
+    """ Upload using unison (Windows-client-only) """
+    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -sshargs \"-P {ssh_port}\"", ctx)
 
 
 def clean(ctx):
