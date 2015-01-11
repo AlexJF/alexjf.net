@@ -5,13 +5,9 @@ Powered by Pelican
 ## Setup
 
 * Install system-level dependencies:
-    * `lessc`
-    * `uglifyjs`
     * `python`
     * `virtualenv`
-    * `bower` 
-    * `optipng`
-    * `jpegtran`
+    * `npm` 
 * Run `.\make[.py/.ps1] setup`
 
 ## Custom Pelican Plugins

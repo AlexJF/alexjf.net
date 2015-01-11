@@ -7,5 +7,6 @@ __pycache__
 output
 *.pid
 bower_components
+node_modules
 .ropeproject
 .alexjf_env

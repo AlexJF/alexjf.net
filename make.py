@@ -4,7 +4,7 @@
 import argparse
 import os
 
-from subprocess import call
+from subprocess import check_output
 from shutil import rmtree
 
 
@@ -66,7 +66,8 @@ def main():
 
 def setup(ctx):
     """ Install all web dependencies """
-    shell("cd themes/alexjf/ && bower install", ctx)
+    shell("npm install")
+    shell("cd themes/alexjf/ && bower install")
 
 
 def html(ctx):
@@ -111,8 +112,12 @@ def clean(ctx):
     rmtree(ctx["cache"])
 
 
-def shell(command, ctx):
-    call(command.format_map(ctx), shell=True)
+def shell(command, ctx={}):
+
+    env_copy = dict(os.environ)
+    env_copy["PATH"] += os.pathsep + shell("npm bin")
+
+    return check_output(command.format_map(ctx), shell=True, universal_newlines=True, env=env_copy)
 
 if __name__ == "__main__":
     main()
