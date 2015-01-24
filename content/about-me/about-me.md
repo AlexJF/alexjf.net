@@ -6,12 +6,12 @@ Description: Information about Alexandre Jorge Fonseca
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  
-**Residence:** Doha, Qatar
+**Residence:** Doha, Qatar  
 **Other places I've lived in:** Oeiras, Portugal | Barcelona, Spain | Stockholm, Sweden  
 
 **Work:**
 
-* [Qatar Computing Research Institute](http://www.qcri.com) - December 2014 to Present
+* [Qatar Computing Research Institute](http://www.qcri.com) - December 2014 to Present  
   Research Associate
 * [Telefónica Digital](http://www.telefonica.com/en/digital/html/home/) - January 2014 to July 2014  
   Master Thesis Intern ([thesis](/projects/thesis/optimizing-synchronous-online-computation-graphs))  

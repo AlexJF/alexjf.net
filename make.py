@@ -66,13 +66,13 @@ def main():
 
 def setup(ctx):
     """ Install all web dependencies """
-    shell("npm install")
-    shell("cd themes/alexjf/ && bower install")
+    shell_with_npm("npm install")
+    shell_with_npm("cd themes/alexjf/ && bower install")
 
 
 def html(ctx):
     """ Generate html sources (with base configuration) """
-    shell("{pelican} {input} -o {output} -s {baseconf} {extra}", ctx)
+    shell_with_npm("{pelican} {input} -o {output} -s {baseconf} {extra}", ctx)
 
 
 def regenerate(ctx):
@@ -83,12 +83,12 @@ def regenerate(ctx):
 
 def publish(ctx):
     """ Generate html sources (with publish configuration) """
-    shell("{pelican} {input} -o {output} -s {publishconf} {extra}", ctx)
+    shell_with_npm("{pelican} {input} -o {output} -s {publishconf} {extra}", ctx)
 
 
 def serve(ctx):
     """ Start HTML server """
-    shell("cd {output} && {python} -m pelican.server {serve_port}", ctx)
+    shell_with_npm("cd {output} && {python} -m pelican.server {serve_port}", ctx)
 
 
 def rsync_upload(ctx):
@@ -103,7 +103,7 @@ def winscp_upload(ctx):
 
 def unison_upload(ctx):
     """ Upload using unison (Windows-client-only) """
-    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -sshargs \"-P {ssh_port}\"", ctx)
+    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -batch -force \"{output}/\" -ui \"text\" -sshargs \"-P {ssh_port}\"", ctx)
 
 
 def clean(ctx):
@@ -112,12 +112,14 @@ def clean(ctx):
     rmtree(ctx["cache"])
 
 
-def shell(command, ctx={}):
-
+def shell_with_npm(command, ctx={}):
     env_copy = dict(os.environ)
     env_copy["PATH"] += os.pathsep + shell("npm bin")
 
-    return check_output(command.format_map(ctx), shell=True, universal_newlines=True, env=env_copy)
+    return shell(command, ctx, env_copy)
+
+def shell(command, ctx={}, env=None):
+    return check_output(command.format_map(ctx), shell=True, universal_newlines=True, env=env)
 
 if __name__ == "__main__":
     main()
