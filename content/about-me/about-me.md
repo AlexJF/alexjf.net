@@ -6,15 +6,17 @@ Description: Information about Alexandre Jorge Fonseca
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  
-**Residence:** Oeiras, Portugal  
-**Other places I've lived in:** Barcelona, Spain | Stockholm, Sweden  
+**Residence:** Doha, Qatar
+**Other places I've lived in:** Oeiras, Portugal | Barcelona, Spain | Stockholm, Sweden  
 
 **Work:**
 
+* [Qatar Computing Research Institute](http://www.qcri.com) - December 2014 to Present
+  Research Associate
 * [Telefónica Digital](http://www.telefonica.com/en/digital/html/home/) - January 2014 to July 2014  
   Master Thesis Intern ([thesis](/projects/thesis/optimizing-synchronous-online-computation-graphs))  
 * [OpenRatio](http://www.openratio.com) - October 2013 to June 2014  
-  Software Engineer Intern (-2013) / System Architect (2014-)
+  Software Engineer Intern (2013) / System Architect (2014)
 * [Universitat Politècnica de Catalunya](http://upc.edu) - June 2013 to September 2013  
   Research Trainee in the [CONFINE](http://confine-project.eu)
 * [NAPE - IST](http://nape.ist.utl.pt/) - January 2012 to July 2012  
@@ -84,10 +86,10 @@ Description: Information about Alexandre Jorge Fonseca
 
 * Programming languages & main libraries:
     * C and C++11 (SDL/wxWidgets/OpenGL/QT)
-    * Python (Numpy, Scipy, Boto, Paramiko, Flask, Django, Pelican)
-    * Java (GWT, Jgroups)
+    * Python (Numpy, Scipy, Boto, Paramiko, Flask, Django, Pelican, Selenium)
+    * Java
     * JavaScript (JQuery, Processing.js, Node.js, AngularJS, Bootstrap)
-    * PHP (Frameworks: CakePHP, Laravel | CMS: Drupal, Wordpress, CMSMS)
+    * PHP (Frameworks: Laravel | CMS: Drupal, Wordpress)
     * VB.NET, C#.
     * HTML 5, CSS (Grid, Responsive, Bootstrap, LESS)
     * SQL, Erlang, Scheme, CLisp, Prolog, Assembly
@@ -113,11 +115,3 @@ Description: Information about Alexandre Jorge Fonseca
     * Office suites
     * LaTeX (documents, presentations with Beamer and graphics with TikZ)
     * Photoshop/GIMP, Inkscape
-
-**Opensource projects I contributed to:**
-
-* [Giraph](https://giraph.apache.org)
-* [Grafos.ml](http://grafos.ml)
-* [Eclim](http://eclim.org)
-* [LaTeX-Box](https://github.com/LaTeX-Box-Team/LaTeX-Box)
-* [slimlock](https://github.com/dannyn/slimlock)
