@@ -36,7 +36,7 @@ Due to this paradigm change in Hadoop, we can identify 2 different Hadoop genera
 * Better failure handling. Previous generations had a single point of failure in the JobTracker losing the entire job queue in such an event. New generation has (or will soon have) recovery of both ApplicationMaster (through a restart by the ResourceManager) and the ResourceManager (through ZooKeeper, YARN-128, YARN-149, YARN-556).
 * Wire-compatible protocol. This should guarantee protocol compatibility even between different versions of Hadoop so you no longer have to worry about having to simultaneously update the entire cluster and can do rolling upgrades.
 
-This guide is based on the most recent GA (general access) version of Hadoop (2.2.0 at the time of this writing but it has also been tested with non-GA versions 2.3.0 and 2.4.0) although I'll make an effort to keep it up to date with future releases. If something doesn't quite work for you, let me know in the comments and I'll try to help. I'll try to keep the instructions distribution agnostic so it applies to a greater audience but this installation is targeted for Linux-based machines. Certain distributions might have different hadoop packages in their repositories although these are usually outdated and have strange structures. Another advantage of the installation I'll be detailing here is that it doesn't require root to run.
+This guide is based on the most recent GA (general access) version of Hadoop (2.2.0 at the time of this writing) although I'll make an effort to keep it up to date with future releases (UPDATE: tested and working up to version 2.6.0). If something doesn't quite work for you, let me know in the comments and I'll try to help. I'll try to keep the instructions distribution agnostic so it applies to a greater audience but this installation is targeted for Linux-based machines. Certain distributions might have different hadoop packages in their repositories although these are usually outdated and have strange structures. Another advantage of the installation I'll be detailing here is that it doesn't require root to run.
 
 ## Single Node Installation
 In this section, we'll cover single node installation. If you just want to setup an Hadoop installation for testing or to play with, this is probably enough. If you want to install Hadoop on a cluster, you should also start by following this section on one of the nodes in the cluster to make sure you got all the dependencies right and then go over the steps in the Cluster Installation to configure that installation for cluster operation.
@@ -602,6 +602,23 @@ fab -P bootstrap
 fab test
 ```
 
+### Native hadoop library and 64-bit JVMs
+
+Hadoop ships with a precompiled 32-bit native library [used for efficient compression/decompression](http://hadoop.apache.org/docs/r2.4.0/hadoop-project-dist/hadoop-common/NativeLibraries.html#Components). If you try to run Hadoop on a 64-bit JVM with this precompiled library, you might be greeted with the following error:
+
+```
+OpenJDK 64-Bit Server VM warning: You have loaded library /home/hadoop/hadoop-2.2.0/lib/native/libhadoop.so.1.0.0 which might have disabled stack guard. The VM will try to fix the stack guard now. It's highly recommended that you fix the library with 'execstack -c <libfile>', or link it with '-z noexecstack'.
+```
+
+I have never noticed anything breaking by not using the native libraries but, if you rely a lot on compression, the Java implementations used as a fallback will surely be a lot less performant than the native ones.
+
+Now, despite what the error message tells you, executing the `execstack` command won't fix anything (at least it never did for me). The right way to fix this issue is to do one of the following:
+
+* Run Hadoop on a 32 bit JVM.
+* Recompile the native libary under a 64 bit environment - [Here](http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-common/NativeLibraries.html#Build) you can find the official instructions, and [here](http://blog.woopi.org/wordpress/?p=201) you can find unofficial instructions for Debian-like systems and a prepackaged hadoop for 64bits.
+
+(NOTE: Thank you Chris L. for suggesting this extra section).
+
 
 ## Conclusion
 If you've reached this section and everything's working ok, congratulations! You've just setup a Hadoop Yarn cluster (or single-node setup). This guide has covered the basic aspects of Hadoop. Some other things you might want to consider are authentication, connection with Amazon S3, etc. I'm open to suggestions for other guides and critiques so make sure to give your feedback using the comment form below.
@@ -610,15 +627,16 @@ Hope you've enjoyed reading this :)
 
 **Changelog:**
 
-* 2014-01-07 - Fixed typos and duplicate command in resourcemanager/nodemanager startup with Hadoop scripts.
+* 2015-04-24 - Added a section regarding native library and 64 bits incompatibility.
+* 2014-06-27 - Added S3 and EC2 deployment sections. Updated Fabric scripts. 
+* 2014-03-17
+    * Added a section explaining how to add hadoop binaries to the execution path.
 * 2014-01-27
     * Fixed wrong if condition in example Python streaming program.
     * Added log aggregation section
     * Added `mapreduce.jobtracker.address` to the MapReduce configuration section.
     * Updated the Fabric scripts for server-side Python 2.6 compatibility, more adaptibility and bugfixing.
-* 2014-03-17
-    * Added a section explaining how to add hadoop binaries to the execution path.
-* 2014-06-27 - Added S3 and EC2 deployment sections. Updated Fabric scripts. 
+* 2014-01-07 - Fixed typos and duplicate command in resourcemanager/nodemanager startup with Hadoop scripts.
 
 **Donate:**
 
