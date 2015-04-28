@@ -15,11 +15,12 @@ Summary: This article guides you in the installation of the new generation
 
 <div class='center-text ad' style='margin: 15px'>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- AlexJF - Hadoop Tutorial -->
+<!-- AlexJF - Hadoop Yarn Tutorial -->
 <ins class="adsbygoogle"
-style="display:inline-block;width:728px;height:90px"
-data-ad-client="ca-pub-7030271622919244"
-data-ad-slot="3415995911"></ins>
+     style="display:block"
+     data-ad-client="ca-pub-7030271622919244"
+     data-ad-slot="8008245913"
+     data-ad-format="auto"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -651,11 +652,12 @@ If you found this useful and saved you time, consider buying me a beer :)
 
 <div class='center-text ad' style='margin: 15px'>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- AlexJF - Hadoop Tutorial -->
+<!-- AlexJF - Hadoop Yarn Tutorial -->
 <ins class="adsbygoogle"
-style="display:inline-block;width:728px;height:90px"
-data-ad-client="ca-pub-7030271622919244"
-data-ad-slot="3415995911"></ins>
+     style="display:block"
+     data-ad-client="ca-pub-7030271622919244"
+     data-ad-slot="8008245913"
+     data-ad-format="auto"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
