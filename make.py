@@ -8,7 +8,7 @@ from subprocess import check_output
 from shutil import rmtree
 
 
-SSH_TARGET_DIR = "/home/alex/www/public_html/alexjf_new_testwin"
+SSH_TARGET_DIR = "/home/alex/www/public_html/alexjf"
 
 
 def main():
@@ -119,7 +119,7 @@ def shell_with_npm(command, ctx={}):
     return shell(command, ctx, env_copy)
 
 def shell(command, ctx={}, env=None):
-    return check_output(command.format_map(ctx), shell=True, universal_newlines=True, env=env)
+    return check_output(command.format(**ctx), shell=True, universal_newlines=True, env=env)
 
 if __name__ == "__main__":
     main()

@@ -1,17 +1,19 @@
 Title: About Me
-Logo: {static me4.jpg}
+Logo: {static me.jpg}
 Disable_Comments: True
 Description: Information about Alexandre Jorge Fonseca
 
 **Name:** Alexandre Jorge Fonseca  
 **Birth Date:** 11/07/1991  
 **From:** Oeiras, Portugal  
-**Residence:** Doha, Qatar  
-**Other places I've lived in:** Oeiras, Portugal | Barcelona, Spain | Stockholm, Sweden  
+**Residence:** Barcelona, Spain  
+**Other places I've lived in:** Oeiras, Portugal | Stockholm, Sweden | Doha, Qatar
 
 **Work:**
 
-* [Qatar Computing Research Institute](http://www.qcri.com) - December 2014 to Present  
+* [Alto Data Analytics](http://www.alto-analytics.com) - January 2016 to Present  
+  Software Engineer
+* [Qatar Computing Research Institute](http://www.qcri.com) - December 2014 to December 2015  
   Research Associate
 * [Telefónica Digital](http://www.telefonica.com/en/digital/html/home/) - January 2014 to July 2014  
   Master Thesis Intern ([thesis](/projects/thesis/optimizing-synchronous-online-computation-graphs))  
@@ -84,18 +86,17 @@ Description: Information about Alexandre Jorge Fonseca
 
 **Experience with:**
 
-* Programming languages & main libraries:
-    * C and C++11 (SDL/wxWidgets/OpenGL/QT)
+* Programming languages & main libraries/tools:
+    * C and C++11 (SDL, wxWidgets, OpenGL, QT, CMake)
     * Python (Numpy, Scipy, Boto, Paramiko, Flask, Django, Pelican, Selenium)
-    * Java
+    * Java (Java EE, Netty, Koloboke, Maven, Gradle)
     * JavaScript (JQuery, Processing.js, Node.js, AngularJS, Bootstrap)
+    * HTML 5, CSS (Grid, Responsive, Bootstrap, LESS, SASS)
     * PHP (Frameworks: Laravel | CMS: Drupal, Wordpress)
     * VB.NET, C#.
-    * HTML 5, CSS (Grid, Responsive, Bootstrap, LESS)
     * SQL, Erlang, Scheme, CLisp, Prolog, Assembly
 * Mobile development:
     * Android
-    * Windows Phone
 * Databases:
     * Relational: MySQL/MariaDB, PostgreSQL, SQLite
     * NoSQL: Cassandra, CouchDB, CouchBase, MongoDB, DynamoDB
@@ -103,13 +104,13 @@ Description: Information about Alexandre Jorge Fonseca
     * OpenMPI, OpenMP
     * Hadoop YARN, MapReduce, Giraph, Pig
     * Amazon AWS (mainly EC2, S3, EMR, ELB, DynamoDB), Heroku
-* Enterprise: Mule ESB, IBM Worklight
-* Server Administration and Configuration:
+* Server Administration/DevOps:
     * Configuration from scratch of Linux servers with software such as LAMP, nginx, iptables, fail2ban, dovecot, postfix, ssh, ftp, ssl management.
     * Setting up Continuous Integration (CI) clusters with Jenkins.
+    * Configuration management/Automation: SaltStack, Fabric
 * Operating Systems & distributions:
-    * Windows XP, Vista, 7, 8
-    * Linux: Arch Linux (my main distro), OpenSUSE, Ubuntu, Mint, Fedora, RHEL
+    * Windows 7, 8, 10 (main)
+    * Linux: Arch Linux (main), Ubuntu, RHEL
 * Control Versioning Systems: Svn, Git, Mercurial
 * Misc:
     * Office suites
