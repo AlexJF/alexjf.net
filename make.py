@@ -11,30 +11,93 @@ from shutil import rmtree
 SSH_TARGET_DIR = "/home/alex/www/public_html/alexjf"
 
 
-def main():
-    TASKS = {
-        "setup": setup,
-        "html": html,
-        "regenerate": regenerate,
-        "publish": publish,
-        "serve": serve,
-        "clean": clean,
-        "rsync_upload": rsync_upload,
-        "winscp_upload": winscp_upload,
-        "unison_upload": unison_upload
-    }
+def setup(ctx):
+    """ Install all web dependencies """
+    shell_with_npm("npm install")
+    shell_with_npm("cd themes/alexjf/ && bower install")
 
+
+def html(ctx):
+    """ Generate html sources (with base configuration) """
+    shell_with_npm("{pelican} {input} -o {output} -s {baseconf} {extra}", ctx)
+
+
+def regenerate(ctx):
+    """ Regenerate html sources (with base configuration) """
+    ctx["extra"] += " -r "
+    html(ctx)
+
+
+def publish(ctx):
+    """ Generate html sources (with publish configuration) """
+    shell_with_npm("{pelican} {input} -o {output} -s {publishconf} {extra}", ctx)
+
+
+def serve(ctx):
+    """ Start HTML server """
+    shell_with_npm("cd {output} && {python} -m pelican.server {serve_port}", ctx)
+
+
+def rsync_upload(ctx):
+    """ Upload using rsync (Unix-only) """
+    shell("rsync -e 'ssh -p {ssh_port}' -P -rvzc --delete {output}/ {ssh_user}@{ssh_host}:{ssh_target_dir} --cvs-exclude", ctx)
+
+
+def winscp_upload(ctx):
+    """ Upload using winscp (Windows-only) """
+    shell("winscp /command \"option batch abort\" \"option confirm off\" \"open sftp://{ssh_user}@{ssh_host}:{ssh_port}\" \"synchronize remote -delete -criteria=size \"\"{output}\"\" \"\"{ssh_target_dir}\"\"\" \"exit\"", ctx)
+
+
+def unison_upload(ctx):
+    """ Upload using unison (Windows-client-only) """
+    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -force -batch \"{output}/\" -ui \"text\" -sshargs \"-P {ssh_port}\"", ctx)
+
+
+def clean(ctx):
+    """ Clean output directory and cache """
+    if os.path.exists("output"):
+        rmtree(ctx["output"])
+
+    if os.path.exists("cache"):
+        rmtree(ctx["cache"])
+
+
+def shell_with_npm(command, ctx={}):
+    env_copy = dict(os.environ)
+    env_copy["PATH"] += os.pathsep + shell("npm bin").strip()
+
+    return shell(command, ctx, env_copy)
+
+
+def shell(command, ctx={}, env=None):
+    return check_output(command.format(**ctx), shell=True, universal_newlines=True, env=env)
+
+
+TASKS = {
+    "setup": setup,
+    "html": html,
+    "regenerate": regenerate,
+    "publish": publish,
+    "serve": serve,
+    "clean": clean,
+    "rsync_upload": rsync_upload,
+    "winscp_upload": winscp_upload,
+    "unison_upload": unison_upload,
+}
+
+
+def main():
     epilog = "Tasks:\n"
 
     for task_name, task in TASKS.items():
         epilog += "\t{} - {}\n".format(task_name, task.__doc__)
 
     parser = argparse.ArgumentParser(
-            description="AlexJF build system", 
-            epilog=epilog, 
-            formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("tasks", metavar="task", nargs="+", 
-            help="Tasks to execute (in-order)")
+        description="AlexJF build system",
+        epilog=epilog,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("tasks", metavar="task", nargs="+",
+                        help="Tasks to execute (in-order)")
     parser.add_argument("-i", "--input", default="content", help="Input directory")
     parser.add_argument("-o", "--output", default="output", help="Output directory")
     parser.add_argument("-c", "--cache", default="cache", help="Cache directory")
@@ -63,63 +126,6 @@ def main():
     for task in args["tasks"]:
         TASKS[task](args)
 
-
-def setup(ctx):
-    """ Install all web dependencies """
-    shell_with_npm("npm install")
-    shell_with_npm("cd themes/alexjf/ && bower install")
-
-
-def html(ctx):
-    """ Generate html sources (with base configuration) """
-    shell_with_npm("{pelican} {input} -o {output} -s {baseconf} {extra}", ctx)
-
-
-def regenerate(ctx):
-    """ Regenerate html sources (with base configuration) """
-    ctx["extra"] += ["-r"]
-    html(ctx)
-
-
-def publish(ctx):
-    """ Generate html sources (with publish configuration) """
-    shell_with_npm("{pelican} {input} -o {output} -s {publishconf} {extra}", ctx)
-
-
-def serve(ctx):
-    """ Start HTML server """
-    shell_with_npm("cd {output} && {python} -m pelican.server {serve_port}", ctx)
-
-
-def rsync_upload(ctx):
-    """ Upload using rsync (Unix-only) """
-    shell("rsync -e 'ssh -p {ssh_port}' -P -rvzc --delete {output}/ {ssh_user}@{ssh_host}:{ssh_target_dir} --cvs-exclude", ctx)
-
-
-def winscp_upload(ctx):
-    """ Upload using winscp (Windows-only) """
-    shell("winscp /command \"option batch abort\" \"option confirm off\" \"open sftp://{ssh_user}@{ssh_host}:{ssh_port}\" \"synchronize remote -delete -criteria=size \"\"{output}\"\" \"\"{ssh_target_dir}\"\"\" \"exit\"", ctx)
-
-
-def unison_upload(ctx):
-    """ Upload using unison (Windows-client-only) """
-    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -batch -force \"{output}/\" -ui \"text\" -sshargs \"-P {ssh_port}\"", ctx)
-
-
-def clean(ctx):
-    """ Clean output directory and cache """
-    rmtree(ctx["output"])
-    rmtree(ctx["cache"])
-
-
-def shell_with_npm(command, ctx={}):
-    env_copy = dict(os.environ)
-    env_copy["PATH"] += os.pathsep + shell("npm bin")
-
-    return shell(command, ctx, env_copy)
-
-def shell(command, ctx={}, env=None):
-    return check_output(command.format(**ctx), shell=True, universal_newlines=True, env=env)
 
 if __name__ == "__main__":
     main()

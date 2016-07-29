@@ -10,3 +10,5 @@ bower_components
 node_modules
 .ropeproject
 .alexjf_env
+*.iml
+.idea/*

@@ -1,0 +1,15 @@
+name: alexjf.net
+dependencies:
+- lxml=3.6.0
+- python=3.5.2
+- pip:
+  - cssmin==0.2.0
+  - mdx-collapse==0.1.0
+  - mdx-textalign==1.0
+  - pelican==3.6.3
+  - pelican-advthumbnailer==0.5.0
+  - pelican-autostatic==0.2.2
+  - pelican-entities==0.2.0
+  - pelican-metadataparsing==0.1.0
+  - pelican-minify==0.9
+  - webassets==0.11.1

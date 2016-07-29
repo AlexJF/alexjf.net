@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
-from __future__ import unicode_literals
 import os
 import collections
+import entities
 
 import six
 
@@ -57,6 +57,8 @@ DEFAULT_PAGINATION = 10
 
 PAGE_PATHS = []
 ARTICLE_PATHS = []
+PATH_METADATA = ""
+FILENAME_METADATA = ""
 
 USE_FOLDER_AS_CATEGORY = False
 DEFAULT_DATE = "fs"
@@ -65,11 +67,13 @@ DIRECT_TEMPLATES = []
 PAGINATED_DIRECT_TEMPLATES = []
 
 STATIC_PATHS = [
-    os.path.join('images', 'favicon.ico'),
+    'images/favicon.ico',
+    'images/favicon.png',
     ]
 
 EXTRA_PATH_METADATA = {
-    os.path.join('images', 'favicon.ico'): {'path': 'favicon.ico'},
+    'images/favicon.ico': {'path': 'favicon.ico'},
+    'images/favicon.png': {'path': 'favicon.png'},
     }
 
 
@@ -152,7 +156,7 @@ PAGINATION_PATTERNS = (
 
 ENTITY_TYPES = {
     "Page": {
-        "PATHS": ["."],
+        "PATHS": [""],
         "EXCLUDES": ["blog", "projects"],
         "PAGE_URL": "{slug}",
         "PAGE_SAVE_AS": os.path.join("{slug}", "index.html"),
@@ -176,7 +180,7 @@ ENTITY_TYPES = {
     },
     "Project": {
         "PATHS": ["projects"],
-        "SORT_ATTRIBUTES": ["project_start"],
+        "SORTER": entities.attribute_list_sorter(["date", "project_start"], reverse=True),
         "PROJECT_URL": "projects/{category}/{slug}/",
         "PROJECT_SAVE_AS": os.path.join("projects", "{category}", "{slug}", "index.html"),
         "PATH_METADATA": r".*(?:/|\\)(?P<category>[^/\\]+)(?:/|\\)(?P<slug>[^/\\]+)(?:/|\\).*",

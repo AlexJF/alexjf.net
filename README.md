@@ -5,8 +5,9 @@ Powered by Pelican
 ## Setup
 
 * Install system-level dependencies:
-    * `python`
-    * `virtualenv`
+    * `python`:
+        * Vanilla + virtualenv + lxml: Create virtualenv and use pip to load requirements.txt.
+        * Anaconda: `conda env create -f alexjf.net.yml`.
     * `npm` 
 * Run `.\make[.py/.ps1] setup`
 
