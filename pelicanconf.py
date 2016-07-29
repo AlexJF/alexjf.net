@@ -180,7 +180,7 @@ ENTITY_TYPES = {
     },
     "Project": {
         "PATHS": ["projects"],
-        "SORTER": entities.attribute_list_sorter(["date", "project_start"], reverse=True),
+        "SORTER": entities.attribute_list_sorter(["project_start", "title"], reverse=True),
         "PROJECT_URL": "projects/{category}/{slug}/",
         "PROJECT_SAVE_AS": os.path.join("projects", "{category}", "{slug}", "index.html"),
         "PATH_METADATA": r".*(?:/|\\)(?P<category>[^/\\]+)(?:/|\\)(?P<slug>[^/\\]+)(?:/|\\).*",
