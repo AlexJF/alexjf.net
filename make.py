@@ -50,7 +50,7 @@ def winscp_upload(ctx):
 
 def unison_upload(ctx):
     """ Upload using unison (Windows-client-only) """
-    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -force -batch \"{output}/\" -ui \"text\" -sshargs \"-P {ssh_port}\"", ctx)
+    shell("unison {output}/ ssh://{ssh_user}@{ssh_host}/{ssh_target_dir} -batch -force \"{output}/\" -ui \"text\" -sshargs \"-P {ssh_port}\"", ctx)
 
 
 def clean(ctx):
