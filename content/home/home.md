@@ -6,7 +6,7 @@ Description: Personal website of Alexandre Jorge Fonseca
 
 Welcome to my website!
 
-My name is Alexandre Fonseca and I'm currently a Software Engineer at [Alto Analytics](http://www.alto-analytics.com/).
+My name is Alexandre Fonseca and I'm currently a System Software Engineer at [Midokura](http://www.midokura.com/).
 
 This site's main purpose is to constitute my personal web presence. Here you will be able to learn who I am, what projects I am/was involved in as well as just check some rambling posts on my blog.
 

@@ -11,7 +11,9 @@ Description: Information about Alexandre Jorge Fonseca
 
 **Work:**
 
-* [Alto Data Analytics](http://www.alto-analytics.com) - January 2016 to Present  
+* [Midokura](http://www.midokura.com) - August 2016 to Present  
+  System Software Engineer
+* [Alto Data Analytics](http://www.alto-analytics.com) - January 2016 to July 2016  
   Software Engineer
 * [Qatar Computing Research Institute](http://www.qcri.com) - December 2014 to December 2015  
   Research Associate
