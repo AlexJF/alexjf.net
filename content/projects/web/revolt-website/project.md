@@ -29,5 +29,3 @@ interface.
 I also used several external modules such as
 [Geshi](http://qbnz.com/highlighter/), [Highslide JS](http://highslide.com/)
 and [TinyMce Editor](http://www.tinymce.com/).
-
-You can check it out at [http://revolt.alexjf.net](http://revolt.alexjf.net)
