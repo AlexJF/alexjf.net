@@ -199,9 +199,13 @@ ENTITY_TYPES = {
 #                             Extensions                              #
 #######################################################################
 
-MD_EXTENSIONS = ["codehilite(css_class=highlight)",
-                 "extra",
-                 "toc",
-                 "textalign",
-                 "collapse"
-                ]
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': { 'css_class': 'highlight' },
+        'markdown.extensions.extra': {},
+        'markdown.extensions.toc': {},
+        'mdx_textalign': {},
+        'mdx_collapse': {},
+    },
+    'output_format': 'html5'
+}
