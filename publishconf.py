@@ -12,7 +12,7 @@ from pelicanconf import *
 
 PLUGINS += ["minify"]
 
-SITEURL = "http://www.alexjf.net"
+SITEURL = "https://www.alexjf.net"
 RELATIVE_URLS = False
 
 DELETE_OUTPUT_DIRECTORY = True

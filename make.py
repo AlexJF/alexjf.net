@@ -8,7 +8,7 @@ from subprocess import check_output
 from shutil import rmtree
 
 
-SSH_TARGET_DIR = "/home/alex/www/public_html/alexjf"
+SSH_TARGET_DIR = "/home/alex/www/public_html/alexjf_https"
 
 
 def setup(ctx):
