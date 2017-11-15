@@ -1,12 +1,8 @@
 {% extends "page.html" %}
 {% block content %}
-<script src="http://max.jotfor.ms/static/prototype.forms.js" type="text/javascript"></script>
-<script src="http://max.jotfor.ms/static/jotform.forms.js?3.2.3297" type="text/javascript"></script>
-<script type="text/javascript">
-   JotForm.init(function(){
-      $('input_16').hint('ex: myname@example.com');
-   });
-</script>
+<script src="https://cdn.jotfor.ms/static/prototype.forms.js" type="text/javascript"></script>
+<script src="https://cdn.jotfor.ms/static/jotform.forms.js?3.3.2684" type="text/javascript"></script>
+<script type="text/javascript"> JotForm.init(function(){ setTimeout(function() { $('input_16').hint('ex: myname@example.com'); }, 20); /*INIT-END*/});</script>
 
 <form class="jotform-form form-horizontal" role="form" action="http://submit.jotformeu.com/submit/42315442700342/" method="post" name="form_42315442700342" id="42315442700342" accept-charset="utf-8">
   <input type="hidden" name="formID" value="42315442700342" />
@@ -60,7 +56,6 @@
           </span>
         </label>
         <div id="cid_19" class="col-md-10 form-input-wide">
-          <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
           <div id="recaptcha_input_19">
           </div>
           <script type="text/javascript">
@@ -71,12 +66,11 @@
       theme: "clean",
       callback: function()
       {
-        $("recaptcha_response_field").addClassName("validate[required]");
         JotForm.validator()
       }
     });
   }
-rc_script_tag.src = "http://www.google.com/recaptcha/api/js/recaptcha_ajax.js";
+rc_script_tag.src = "https://www.google.com/recaptcha/api/js/recaptcha_ajax.js";
 rc_script_tag.type = 'text/javascript';
 rc_script_tag.onload = function()
 {
