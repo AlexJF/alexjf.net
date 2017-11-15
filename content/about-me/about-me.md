@@ -11,7 +11,9 @@ Description: Information about Alexandre Jorge Fonseca
 
 **Work:**
 
-* [Midokura](http://www.midokura.com) - August 2016 to Present  
+* [Datadog](https://www.datadoghq.com) - November 2017 to Present  
+  Software Engineer
+* [Midokura](http://www.midokura.com) - August 2016 to November 2017  
   System Software Engineer
 * [Alto Data Analytics](http://www.alto-analytics.com) - January 2016 to July 2016  
   Software Engineer
