@@ -12,3 +12,4 @@ node_modules
 .alexjf_env
 *.iml
 .idea/*
+.venv

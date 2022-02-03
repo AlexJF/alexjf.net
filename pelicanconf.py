@@ -4,8 +4,6 @@ import os
 import collections
 import entities
 
-import six
-
 #######################################################################
 #                               GENERAL                               #
 #######################################################################
@@ -64,7 +62,7 @@ USE_FOLDER_AS_CATEGORY = False
 DEFAULT_DATE = "fs"
 
 DIRECT_TEMPLATES = []
-PAGINATED_DIRECT_TEMPLATES = []
+PAGINATED_TEMPLATES = {}
 
 STATIC_PATHS = [
     'images/favicon.ico',
@@ -78,11 +76,13 @@ EXTRA_PATH_METADATA = {
 
 
 Attachment = collections.namedtuple("Attachment", ["url", "name"])
+
+
 def parse_attachments(string):
     if string is None or not isinstance(string, collections.Iterable):
         return None
 
-    if not isinstance(string, six.string_types):
+    if not isinstance(string, str):
         string = '\n'.join(string)
 
     attachments = []
@@ -106,11 +106,13 @@ def parse_attachments(string):
 
 
 GalleryItem = collections.namedtuple("GalleryItem", ["url", "description"])
+
+
 def parse_gallery(string):
     if string is None or not isinstance(string, collections.Iterable):
         return None
 
-    if not isinstance(string, six.string_types):
+    if not isinstance(string, str):
         string = '\n'.join(string)
 
     items = []
@@ -134,7 +136,7 @@ def parse_gallery(string):
 
 
 def parse_description(string):
-    if string is None or isinstance(string, six.string_types):
+    if string is None or isinstance(string, str):
         return string
 
     if isinstance(string, collections.Iterable):
@@ -170,13 +172,14 @@ ENTITY_TYPES = {
         "ARTICLE_SAVE_AS": os.path.join("blog", "{category}", "{slug}", "index.html"),
         "PATH_METADATA": r".*(?:/|\\)(?P<category>[^/\\]+)(?:/|\\)(?P<date>\d{4}-\d{2}-\d{2})(?:/|\\)(?P<slug>[^/\\]+)(?:/|\\).*",
         "DIRECT_TEMPLATES": ["blog"],
-        "PAGINATED_DIRECT_TEMPLATES": ["blog"],
+        "PAGINATED_TEMPLATES": {"blog": None, "blog_category": None},
         "BLOG_SAVE_AS": os.path.join("blog", "index.html"),
+        "BLOG_URL": "blog/index.html",
         "CATEGORY_TEMPLATE": "blog_category",
         "CATEGORY_URL": "blog/{slug}/",
         "CATEGORY_SAVE_AS": os.path.join("blog", "{slug}", "index.html"),
         "FEED_ATOM": os.path.join("blog", "feeds", "atom.xml"),
-        "CATEGORY_FEED_ATOM": os.path.join("blog", "feeds", "%s.atom.xml")
+        "CATEGORY_FEED_ATOM": os.path.join("blog", "feeds", "{slug}.atom.xml")
     },
     "Project": {
         "PATHS": ["projects"],
@@ -185,13 +188,14 @@ ENTITY_TYPES = {
         "PROJECT_SAVE_AS": os.path.join("projects", "{category}", "{slug}", "index.html"),
         "PATH_METADATA": r".*(?:/|\\)(?P<category>[^/\\]+)(?:/|\\)(?P<slug>[^/\\]+)(?:/|\\).*",
         "DIRECT_TEMPLATES": ["projects"],
-        "PAGINATED_DIRECT_TEMPLATES": ["projects"],
+        "PAGINATED_TEMPLATES": {"projects": None, "project_category": None},
         "PROJECTS_SAVE_AS": os.path.join("projects", "index.html"),
+        "PROJECTS_URL": "projects/index.html",
         "CATEGORY_TEMPLATE": "project_category",
         "CATEGORY_URL": 'projects/{slug}/',
         "CATEGORY_SAVE_AS": os.path.join('projects', '{slug}', 'index.html'),
         "FEED_ATOM": os.path.join("projects", "feeds", "atom.xml"),
-        "CATEGORY_FEED_ATOM": os.path.join("projects", "feeds", "%s.atom.xml")
+        "CATEGORY_FEED_ATOM": os.path.join("projects", "feeds", "{slug}.atom.xml")
     }
 }
 
@@ -204,7 +208,6 @@ MARKDOWN = {
         'markdown.extensions.codehilite': { 'css_class': 'highlight' },
         'markdown.extensions.extra': {},
         'markdown.extensions.toc': {},
-        'mdx_textalign': {},
         'mdx_collapse': {},
     },
     'output_format': 'html5'
