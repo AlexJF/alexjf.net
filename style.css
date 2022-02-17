@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* Reset from https://www.digitalocean.com/community/tutorials/css-minimal-css-reset */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Nord Theme (from https://github.com/arcticicestudio/nord/blob/b7146acd87547b59810b3499d87f55dbfc25f105/src/nord.css) */
+
+:root {
+    --nord0: #2e3440;
+    --nord1: #3b4252;
+    --nord2: #434c5e;
+    --nord3: #4c566a;
+    --nord4: #d8dee9;
+    --nord5: #e5e9f0;
+    --nord6: #eceff4;
+    --nord7: #8fbcbb;
+    --nord8: #88c0d0;
+    --nord9: #81a1c1;
+    --nord10: #5e81ac;
+    --nord11: #bf616a;
+    --nord12: #d08770;
+    --nord13: #ebcb8b;
+    --nord14: #a3be8c;
+    --nord15: #b48ead;
+}
+
+/* Actual styles */
+html {
+    color: var(--nord6);
+    background-color: var(--nord2);
+    font-family: 'Montserrat', 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+body > * {
+    margin: 1rem;
+    flex-shrink: 0;
+}
+
+a {
+    color: var(--nord6);
+    text-decoration: none;
+    border-bottom: 1px solid var(--nord6);
+    transition: color 0.8s ease-in-out, border-color 0.8s ease-in-out;
+    transition-property: color, border-color;
+}
+
+a:hover {
+    color: var(--nord8);
+    border-bottom: 1px solid var(--nord8);
+}
+
+.id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.about {
+    font-size: 1.5rem;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: row;
+}
+
+.contacts .item {
+    display: block;
+    margin: 1rem;
+}
+
+.background {
+    z-index: -1;
+    /*background-color: #8fbcbb;*/
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+

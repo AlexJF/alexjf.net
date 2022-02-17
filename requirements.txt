@@ -1,9 +1,0 @@
-cssmin==0.2.0
-mdx-collapse==0.1.0
-pelican==4.7.1
-pelican-advthumbnailer==1.0.0
-pelican-autostatic==1.0.0
-pelican-entities==1.0.0
-pelican-metadataparsing==0.1.0
-pelican-minify==0.9
-webassets==0.12.1

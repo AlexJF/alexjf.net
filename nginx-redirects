@@ -1,3 +1,0 @@
-location = /blog/personal/what-ive-been {
-  return 301 /blog/personal/what-ive-been-up-to;
-}

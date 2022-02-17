@@ -1,9 +1,0 @@
-{% extends "blog.html" %}
-{% block head %}
-{{ super() }}
-<link rel="alternate" type="application/atom+xml" title="Blog - {{ category.name | title }}" href="{{ SITEURL }}/blog/feeds/{{ category.slug }}.atom.xml" />
-{% endblock %}
-{% block content_title %}
-<h2 class="page-title">Articles in the {{ category.name | title }} category</h2>
-{% endblock %}
-
