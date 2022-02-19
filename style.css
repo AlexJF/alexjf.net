@@ -97,6 +97,8 @@ a:hover {
 .contacts {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .contacts .item {

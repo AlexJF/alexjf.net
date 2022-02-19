@@ -1,13 +1,21 @@
 const frustumSize = 100;
 const boxSize = 10;
+// lets add an extra set of boxes around determined box field to account for perspective "holes"
+const margin = -boxSize;
+let updated = true;
+
+const pointerVector = new THREE.Vector2();
+const positionVector = new THREE.Vector3();
+const instanceMatrix4 = new THREE.Matrix4();
+const transformationMatrix4 = new THREE.Matrix4();
 
 class Box {
     constructor(instancedMesh, index, position, size) {
         this.instancedMesh = instancedMesh;
         this.index = index;
-        this.matrix = new THREE.Matrix4();
         this.size = size || 1;
         this.refPosition = position;
+        this._updateMesh(instanceMatrix4.identity());
         this.scale(size, size, size);
         this.move(position.x, position.y, position.z);
     }
@@ -17,28 +25,30 @@ class Box {
     }
 
     getPosition() {
-        const positionVector = new THREE.Vector3();
-        positionVector.setFromMatrixPosition(this.matrix);
+        positionVector.setFromMatrixPosition(this._getMatrix());
         return positionVector;
     }
 
     setPosition(x, y, z) {
-        this.matrix.setPosition(x, y, z);
-        this._updateMesh();
+        const matrix = this._getMatrix();
+        matrix.setPosition(x, y, z);
+        this._updateMesh(matrix);
     }
 
     move(dx, dy, dz) {
-        const translateMatrix = new THREE.Matrix4();
+        const translateMatrix = transformationMatrix4;
         translateMatrix.makeTranslation(dx, dy, dz);
-        this.matrix.premultiply(translateMatrix);
-        this._updateMesh();
+        const matrix = this._getMatrix();
+        matrix.premultiply(translateMatrix);
+        this._updateMesh(matrix);
     }
 
     scale(dx, dy, dz) {
-        const scalingMatrix = new THREE.Matrix4();
+        const scalingMatrix = transformationMatrix4;
+        const matrix = this._getMatrix();
         scalingMatrix.makeScale(dx, dy, dz);
-        this.matrix.premultiply(scalingMatrix);
-        this._updateMesh();
+        matrix.premultiply(scalingMatrix);
+        this._updateMesh(matrix);
     }
 
     update() {
@@ -49,13 +59,22 @@ class Box {
 
         if (diff > 0) {
             this.move(0, 0, -magnitude);
+            return true;
         } else if (diff < 0) {
             this.move(0,  0, magnitude);
+            return true;
         }
+
+        return false;
     }
 
-    _updateMesh() {
-        this.instancedMesh.setMatrixAt(this.index, this.matrix);
+    _getMatrix() {
+        this.instancedMesh.getMatrixAt(this.index, instanceMatrix4);
+        return instanceMatrix4;
+    }
+
+    _updateMesh(matrix) {
+        this.instancedMesh.setMatrixAt(this.index, matrix);
         this.instancedMesh.instanceMatrix.needsUpdate = true;
     }
 }
@@ -93,6 +112,7 @@ function setup() {
     const aspectRatio = window.innerWidth / window.innerHeight;
     const frustumWidth = frustumSize * aspectRatio;
     const frustumHeight = frustumSize;
+    console.log({aspectRatio, frustumWidth, frustumHeight});
     camera.near = 0;
     camera.far = 1000;
     camera.top = frustumHeight / 2;
@@ -110,23 +130,23 @@ function setup() {
 
     scene.clear();
 
-    const frustumScaler = new THREE.Matrix4();
-    frustumScaler.makeScale(frustumWidth / 2, frustumHeight / 2, 0);
     const cornerWorldPos = cameraCorners
-        .map(p => p.applyMatrix4(frustumScaler))
-        .map(p => unprojectToZPlane(p, camera));
+        .map(p => unprojectToZPlane(p, camera, 0));
     console.log(cornerWorldPos);
     let minX = +Infinity;
     let minY = +Infinity;
     let maxX = -Infinity;
     let maxY = -Infinity;
     cornerWorldPos.forEach(p => {
-        console.log(p);
         minX = Math.min(minX, p.x);
         maxX = Math.max(maxX, p.x);
         minY = Math.min(minY, p.y);
         maxY = Math.max(maxY, p.y);
     })
+    minX += margin;
+    minY += margin;
+    maxX -= margin;
+    maxY -= margin;
     console.log(`floor x = [${minX}, ${maxX}]`);
     console.log(`floor y = [${minY}, ${maxY}]`);
 
@@ -137,6 +157,7 @@ function setup() {
     const numColumns = Math.ceil(floorWidth / boxSize);
     console.log(`Num rows = ${numRows}`);
     console.log(`Num columns = ${numColumns}`);
+    boxes = [];
     boxInstancedMesh.dispose();
     boxInstancedMesh = new THREE.InstancedMesh(geometry, materials, numRows * numColumns);
     scene.add(boxInstancedMesh);
@@ -150,48 +171,86 @@ function setup() {
             boxes.push(b);
         }
     }
+    updated = true;
 }
 
 function unprojectToZPlane(position, camera, z) {
+    if (camera instanceof THREE.PerspectiveCamera) {
+        return unprojectToZPlanePerspective(position, camera, z);
+    }
+    else if (camera instanceof THREE.OrthographicCamera) {
+        return unprojectToZPlaneOrtho(position, camera, z);
+    }
+    else {
+        throw new Error("unknown camera");
+    }
+}
+
+function unprojectToZPlanePerspective(position, camera, z) {
     // if no z specified, assume 0
     const targetZ = z || 0;
     // lets unproject the camera position
     const vec = position.clone().unproject(camera);
-    // then normalized vector from camera position to projected position
+    // then get a normalized vector with the raycasting direction
     vec.sub(camera.position).normalize();
     // Project onto chosen z by calculating scaling factor to chosen z and then subtracting from camera
     const distance = (targetZ - camera.position.z) / vec.z;
     return camera.position.clone().add(vec.multiplyScalar(distance));
 }
 
+function unprojectToZPlaneOrtho(position, camera, z) {
+    // if no z specified, assume 0
+    const targetZ = z || 0;
+    // lets unproject the camera position
+    const vec = position.clone().unproject(camera);
+    // then get a normalized vector with the raycasting direction
+    const cameraDirection = new THREE.Vector3();
+    camera.getWorldDirection(cameraDirection);
+    cameraDirection.normalize();
+    // Project onto chosen z by calculating scaling factor to chosen z and then subtracting from camera
+    const distance = (targetZ - vec.z) / cameraDirection.z;
+    return vec.add(cameraDirection.multiplyScalar(distance));
+}
+
 setup();
 
 function animate() {
-    requestAnimationFrame( animate );
-    boxes.forEach(b => b.update());
-    renderer.render( scene, camera );
+    requestAnimationFrame(animate);
+    if (!updated) {
+        return;
+    }
+    updated = boxes.reduce((updated, b) => b.update() || updated, false);
+    renderer.render(scene, camera);
 }
 animate();
 
-window.onresize = setup;
+let t = null;
+window.onresize =function() {
+    if (t!= null) clearTimeout(t);
+
+    t = setTimeout(function() {
+        setup();
+    }, 500);
+};
 
 const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
 
 function onPointerMove( event ) {
     // calculate pointer position in normalized device coordinates
     // (-1 to +1) for both components
-    pointer.x = (( event.clientX / window.innerWidth) * 2 - 1);
-    pointer.y = (- ( event.clientY / window.innerHeight ) * 2 + 1);
+    pointerVector.x = (( event.clientX / window.innerWidth) * 2 - 1);
+    pointerVector.y = (- ( event.clientY / window.innerHeight ) * 2 + 1);
 
     // update the picking ray with the camera and pointer position
-    raycaster.setFromCamera( pointer, camera );
+    raycaster.setFromCamera( pointerVector, camera );
 
     const intersects = raycaster.intersectObject(boxInstancedMesh);
 
     for ( let i = 0; i < intersects.length; i++ ) {
         boxes[intersects[i].instanceId].move(0, 0, -1);
     }
+
+    updated = true;
 }
 
 window.addEventListener('pointermove', onPointerMove)
