@@ -9,12 +9,27 @@ const positionVector = new THREE.Vector3();
 const instanceMatrix4 = new THREE.Matrix4();
 const transformationMatrix4 = new THREE.Matrix4();
 
+const pressAnimationSpeed = 0.5;
+const releaseAnimationSpeed = 0.5;
+const animationDisplacement = boxSize;
+const pressureDistance = 4 * boxSize;
+
+// https://easings.net/#easeInCubic
+function easeInCubic(x) {
+    return x * x * x;
+}
+
 class Box {
     constructor(instancedMesh, index, position, size) {
         this.instancedMesh = instancedMesh;
         this.index = index;
         this.size = size || 1;
-        this.refPosition = position;
+        this.stablePosition = position;
+        this.displacementPosition = position.clone();
+        this.displacementPosition.z -= animationDisplacement;
+        this.displacementProgress = 0;
+        this.pressed = false;
+        this.pressure = 0;
         this._updateMesh(instanceMatrix4.identity());
         this.scale(size, size, size);
         this.move(position.x, position.y, position.z);
@@ -35,6 +50,14 @@ class Box {
         this._updateMesh(matrix);
     }
 
+    setPressure(pressure) {
+        this.pressure = pressure;
+    }
+
+    distanceTo(otherBox) {
+        return this.getPosition().clone().sub(otherBox.getPosition()).length();
+    }
+
     move(dx, dy, dz) {
         const translateMatrix = transformationMatrix4;
         translateMatrix.makeTranslation(dx, dy, dz);
@@ -51,21 +74,24 @@ class Box {
         this._updateMesh(matrix);
     }
 
-    update() {
-        const position = this.getPosition();
-        const diff = position.z - this.refPosition.z;
-
-        const magnitude = Math.min(Math.abs(diff), this.size / 100);
-
-        if (diff > 0) {
-            this.move(0, 0, -magnitude);
-            return true;
-        } else if (diff < 0) {
-            this.move(0,  0, magnitude);
-            return true;
+    update(elapsedMillis) {
+        let easingFunction = easeInCubic;
+        if (this.displacementProgress === this.pressure) {
+            return false;
         }
+        const pressed = this.displacementProgress <= this.pressure && this.pressure > 0;
+        if (pressed) {
+            //easingFunction = easeInExpo;
+            this.displacementProgress = Math.min(this.pressure, this.displacementProgress + elapsedMillis / 1000 * pressAnimationSpeed);
+        } else {
+            this.displacementProgress = Math.max(this.pressure, this.displacementProgress - elapsedMillis / 1000 * releaseAnimationSpeed);
+        }
+        const movementVector = this.stablePosition.clone().sub(this.displacementPosition);
+        const multiplier = easingFunction(1 - this.displacementProgress);
+        const targetPosition = movementVector.multiplyScalar(multiplier).add(this.displacementPosition);
+        this.setPosition(targetPosition.x,targetPosition.y, targetPosition.z);
 
-        return false;
+        return true;
     }
 
     _getMatrix() {
@@ -81,7 +107,7 @@ class Box {
 
 const canvas = document.querySelector('canvas.background');
 const scene = new THREE.Scene();
-scene.background = new THREE.Color('#2e3440');
+scene.background = new THREE.Color('#434c5e');
 const camera = new THREE.OrthographicCamera();
 const renderer = new THREE.WebGLRenderer({canvas});
 let boxes = [];
@@ -112,7 +138,6 @@ function setup() {
     const aspectRatio = window.innerWidth / window.innerHeight;
     const frustumWidth = frustumSize * aspectRatio;
     const frustumHeight = frustumSize;
-    console.log({aspectRatio, frustumWidth, frustumHeight});
     camera.near = 0;
     camera.far = 1000;
     camera.top = frustumHeight / 2;
@@ -132,7 +157,6 @@ function setup() {
 
     const cornerWorldPos = cameraCorners
         .map(p => unprojectToZPlane(p, camera, 0));
-    console.log(cornerWorldPos);
     let minX = +Infinity;
     let minY = +Infinity;
     let maxX = -Infinity;
@@ -147,16 +171,12 @@ function setup() {
     minY += margin;
     maxX -= margin;
     maxY -= margin;
-    console.log(`floor x = [${minX}, ${maxX}]`);
-    console.log(`floor y = [${minY}, ${maxY}]`);
 
     const floorWidth = maxX - minX;
     const floorHeight = maxY - minY;
 
     const numRows = Math.ceil(floorHeight / boxSize);
     const numColumns = Math.ceil(floorWidth / boxSize);
-    console.log(`Num rows = ${numRows}`);
-    console.log(`Num columns = ${numColumns}`);
     boxes = [];
     boxInstancedMesh.dispose();
     boxInstancedMesh = new THREE.InstancedMesh(geometry, materials, numRows * numColumns);
@@ -212,28 +232,36 @@ function unprojectToZPlaneOrtho(position, camera, z) {
     return vec.add(cameraDirection.multiplyScalar(distance));
 }
 
-setup();
-
-function animate() {
-    requestAnimationFrame(animate);
-    if (!updated) {
-        return;
-    }
-    updated = boxes.reduce((updated, b) => b.update() || updated, false);
-    renderer.render(scene, camera);
-}
-animate();
-
 let t = null;
 window.onresize =function() {
     if (t!= null) clearTimeout(t);
 
     t = setTimeout(function() {
+        // work around quirky handling of 100vh specially on ios
+        document.body.style.minHeight = `${Math.floor(window.innerHeight) - 1}px`;
         setup();
     }, 500);
 };
+window.onresize(null);
+
+let lastAnimateTimestamp = undefined;
+function animate(timestamp) {
+    if (lastAnimateTimestamp === undefined) {
+        lastAnimateTimestamp = timestamp;
+    }
+    const elapsedMillis = timestamp - lastAnimateTimestamp;
+    lastAnimateTimestamp = timestamp;
+    requestAnimationFrame(animate);
+    if (!updated) {
+        return;
+    }
+    updated = boxes.reduce((updated, b) => b.update(elapsedMillis) || updated, false);
+    renderer.render(scene, camera);
+}
+requestAnimationFrame(animate);
 
 const raycaster = new THREE.Raycaster();
+let pressedBoxes = new Set();
 
 function onPointerMove( event ) {
     // calculate pointer position in normalized device coordinates
@@ -246,11 +274,48 @@ function onPointerMove( event ) {
 
     const intersects = raycaster.intersectObject(boxInstancedMesh);
 
-    for ( let i = 0; i < intersects.length; i++ ) {
-        boxes[intersects[i].instanceId].move(0, 0, -1);
+    let referenceBox = intersects.length > 0 ? boxes[intersects[0].instanceId] : undefined;
+
+    const newPressedBoxes = new Set();
+    if (referenceBox) {
+        // press boxes near pointer
+        for (let box of boxes) {
+            const distanceToReference = referenceBox.distanceTo(box);
+            const normalizedPressure = Math.max(0, 1 - distanceToReference / pressureDistance);
+            box.setPressure(normalizedPressure);
+            newPressedBoxes.add(box.getIndex());
+        }
     }
+
+    /*
+    // press boxes that intersect with pointer
+    const newPressedBoxes = new Set();
+    for (let i = 0; i < intersects.length; i++) {
+        newPressedBoxes.add(intersects[i].instanceId);
+        boxes[intersects[i].instanceId].press();
+    }
+    */
+
+    // release boxes that are no longer pressed
+    for (let instanceId of pressedBoxes.values()) {
+        if (!newPressedBoxes.has(instanceId)) {
+            boxes[instanceId].setPressure(0);
+        }
+    }
+    pressedBoxes = newPressedBoxes;
+
+    updated = true;
+}
+
+function resetPressure() {
+    // release boxes that are no longer pressed
+    for (let instanceId of pressedBoxes.values()) {
+        boxes[instanceId].setPressure(0);
+    }
+    pressedBoxes.clear();
 
     updated = true;
 }
 
 window.addEventListener('pointermove', onPointerMove)
+window.addEventListener('pointerout', resetPressure)
